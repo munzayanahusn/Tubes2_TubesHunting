@@ -58,7 +58,7 @@ namespace TubesHunting
                     startX = x;
                     startY = y;
                     maze[x][y] = 'R';
-                    return Tuple.Create(steps, nodes, checkDirection, checkRoute);
+                    return Tuple.Create(steps, nodes - 1, checkDirection, checkRoute);
                 }
 
                 for (int i = 0; i < 4; i++)
