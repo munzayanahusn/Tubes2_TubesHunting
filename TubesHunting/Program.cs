@@ -9,15 +9,14 @@ namespace TubesHunting
         static void Main(string[] args)
         {
             char[][] maze = {
-                new char[] {'R', 'R', 'R', 'T'},
-                new char[] {'X', 'R', 'X', 'R'},
-                new char[] {'X', 'R', 'T', 'R'},
-                new char[] {'X', 'T', 'X', 'X'},
+                new char[] {'R', 'R', 'R', 'R'},
+                new char[] {'X', 'R', 'X', 'T'},
+                new char[] {'X', 'T', 'R', 'R'},
+                new char[] {'X', 'R', 'X', 'X'},
             };
 
-            MazeTreasure treasureHunt = new MazeTreasure(maze, 0, 0, 3);
-            // List<char> route = new List<char>();
-            Tuple<int, List<char>> steps = treasureHunt.TreasureHuntBFS();
+            MazeTreasure treasureHunt = new MazeTreasure(maze, 0, 0, 2);
+            Tuple<int, int, List<char>> steps = treasureHunt.TreasureHuntBFS();
 
             if (steps.Item1 < 0)
             {
@@ -26,13 +25,13 @@ namespace TubesHunting
             else
             {
                 Console.WriteLine("Treasure found in " + steps.Item1 + " steps!");
+                Console.WriteLine("Nodes: " + steps.Item2);
                 Console.Write("Direction: ");
-                // Console.Write(steps.Item2.Count + "\n");
-                for (int i = 0; i < steps.Item2.Count - 1; i++)
+                for (int i = 0; i < steps.Item3.Count - 1; i++)
                 {
-                    Console.Write(steps.Item2[i] + " - ");
+                    Console.Write(steps.Item3[i] + " - ");
                 }
-                Console.Write(steps.Item2[steps.Item2.Count - 1] + "\n");
+                Console.Write(steps.Item3[steps.Item3.Count - 1] + "\n");
             }
         }
     }
