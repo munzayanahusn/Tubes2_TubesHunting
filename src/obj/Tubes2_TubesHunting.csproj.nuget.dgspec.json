@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PROGRAM_KULIAH\\Tubes2_TubesHunting\\Tubes2_TubesHunting.csproj": {}
+    "D:\\PROGRAM_KULIAH\\Tubes2_TubesHunting\\src\\Tubes2_TubesHunting.csproj": {}
   },
   "projects": {
-    "D:\\PROGRAM_KULIAH\\Tubes2_TubesHunting\\Tubes2_TubesHunting.csproj": {
+    "D:\\PROGRAM_KULIAH\\Tubes2_TubesHunting\\src\\Tubes2_TubesHunting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PROGRAM_KULIAH\\Tubes2_TubesHunting\\Tubes2_TubesHunting.csproj",
+        "projectUniqueName": "D:\\PROGRAM_KULIAH\\Tubes2_TubesHunting\\src\\Tubes2_TubesHunting.csproj",
         "projectName": "Tubes2_TubesHunting",
-        "projectPath": "D:\\PROGRAM_KULIAH\\Tubes2_TubesHunting\\Tubes2_TubesHunting.csproj",
+        "projectPath": "D:\\PROGRAM_KULIAH\\Tubes2_TubesHunting\\src\\Tubes2_TubesHunting.csproj",
         "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-        "outputPath": "D:\\PROGRAM_KULIAH\\Tubes2_TubesHunting\\obj\\",
+        "outputPath": "D:\\PROGRAM_KULIAH\\Tubes2_TubesHunting\\src\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config"
