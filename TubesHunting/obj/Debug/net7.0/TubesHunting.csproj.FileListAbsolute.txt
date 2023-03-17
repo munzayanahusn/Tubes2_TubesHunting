@@ -1,0 +1,15 @@
+C:\Users\mfavi\Documents\VSCode\Tubes2_TubesHunting\TubesHunting\bin\Debug\net7.0\TubesHunting.exe
+C:\Users\mfavi\Documents\VSCode\Tubes2_TubesHunting\TubesHunting\bin\Debug\net7.0\TubesHunting.deps.json
+C:\Users\mfavi\Documents\VSCode\Tubes2_TubesHunting\TubesHunting\bin\Debug\net7.0\TubesHunting.runtimeconfig.json
+C:\Users\mfavi\Documents\VSCode\Tubes2_TubesHunting\TubesHunting\bin\Debug\net7.0\TubesHunting.dll
+C:\Users\mfavi\Documents\VSCode\Tubes2_TubesHunting\TubesHunting\bin\Debug\net7.0\TubesHunting.pdb
+C:\Users\mfavi\Documents\VSCode\Tubes2_TubesHunting\TubesHunting\obj\Debug\net7.0\TubesHunting.csproj.AssemblyReference.cache
+C:\Users\mfavi\Documents\VSCode\Tubes2_TubesHunting\TubesHunting\obj\Debug\net7.0\TubesHunting.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mfavi\Documents\VSCode\Tubes2_TubesHunting\TubesHunting\obj\Debug\net7.0\TubesHunting.AssemblyInfoInputs.cache
+C:\Users\mfavi\Documents\VSCode\Tubes2_TubesHunting\TubesHunting\obj\Debug\net7.0\TubesHunting.AssemblyInfo.cs
+C:\Users\mfavi\Documents\VSCode\Tubes2_TubesHunting\TubesHunting\obj\Debug\net7.0\TubesHunting.csproj.CoreCompileInputs.cache
+C:\Users\mfavi\Documents\VSCode\Tubes2_TubesHunting\TubesHunting\obj\Debug\net7.0\TubesHunting.dll
+C:\Users\mfavi\Documents\VSCode\Tubes2_TubesHunting\TubesHunting\obj\Debug\net7.0\refint\TubesHunting.dll
+C:\Users\mfavi\Documents\VSCode\Tubes2_TubesHunting\TubesHunting\obj\Debug\net7.0\TubesHunting.pdb
+C:\Users\mfavi\Documents\VSCode\Tubes2_TubesHunting\TubesHunting\obj\Debug\net7.0\TubesHunting.genruntimeconfig.cache
+C:\Users\mfavi\Documents\VSCode\Tubes2_TubesHunting\TubesHunting\obj\Debug\net7.0\ref\TubesHunting.dll
