@@ -26,12 +26,13 @@ namespace TubesHunting
             this.treasureCount = treasure;
         }
 
-        public Tuple<int, List<char>, List<Tuple<int, int>>> BFS(List<char> directionList)
+        public Tuple<int, int, List<char>, List<Tuple<int, int>>> BFS(List<char> directionList)
         {
             // Prioritas Belok : Kiri, Bawah, Kanan, Atas
             int[] dx = { 0, 1, 0, -1 };
             int[] dy = { -1, 0, 1, 0 };
             bool[,] visited = new bool[rows, cols];
+            int nodes = 0;
 
             Queue<(int x, int y, int steps, List<char> direction, List<Tuple<int, int>> route)> q = new Queue<(int, int, int, List<char>, List<Tuple<int, int>>)>();
             q.Enqueue((startX, startY, 0, directionList, new List<Tuple<int, int>>()));
@@ -46,6 +47,8 @@ namespace TubesHunting
                 List<char> checkDirection = current.direction;
                 List<Tuple<int, int>> checkRoute = current.route;
 
+                nodes++;
+
                 if (maze[x][y] == TREASURE_PLACE)
                 {
                     for (int i = 0; i < checkRoute.Count - 1; i++)
@@ -55,7 +58,7 @@ namespace TubesHunting
                     startX = x;
                     startY = y;
                     maze[x][y] = 'R';
-                    return Tuple.Create(steps, checkDirection, checkRoute);
+                    return Tuple.Create(steps, nodes, checkDirection, checkRoute);
                 }
 
                 for (int i = 0; i < 4; i++)
@@ -97,20 +100,24 @@ namespace TubesHunting
                 }
             }
             // if treasure not found
-            return Tuple.Create(-1, new List<char>(), new List<Tuple<int, int>>());
+            return Tuple.Create(-1, nodes, new List<char>(), new List<Tuple<int, int>>());
         }
 
-        public Tuple<int, List<char>> TreasureHuntBFS()
+        public Tuple<int, int, List<char>> TreasureHuntBFS()
         {
             int steps = 0;
+            int nodes = 0;
             List<char> route = new List<char>();
             for (int i = 0; i < treasureCount; i++) // Asumsi semua treasure dapat diakses
             {
-                Tuple<int, List<char>, List<Tuple<int, int>>> ans = BFS(route);
+                Tuple<int, int, List<char>, List<Tuple<int, int>>> ans = BFS(route);
                 steps += ans.Item1;
-                route = ans.Item2;
+                nodes += ans.Item2;
+                route = ans.Item3;
             }
-            return Tuple.Create(steps, route);
+            return Tuple.Create(steps, nodes, route);
         }
+
+        // TODO: DFS Algorithm
     }
 }
