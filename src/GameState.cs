@@ -1,0 +1,25 @@
+using System;
+using MazeMap;
+
+namespace GameState
+{
+    class GameState
+    {
+        private const char ROAD = 'R';
+        private const char OBSTACLES = 'X';
+        private const char TREASURE_PLACE = 'T';
+        private int treasureCount;
+
+        public GameState(char[][] maze)
+        {
+            this.treasureCount = 0;
+            foreach (char[] listRow in maze)
+            {
+                foreach (char mapContent in listRow)
+                {
+                    if (mapContent == TREASURE_PLACE) this.treasureCount++;
+                }
+            }
+        }
+    }
+}
