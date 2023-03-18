@@ -10,6 +10,42 @@ namespace MazeMap
         private int cols;
         // Default folder
         public static readonly string rootFolder = "../test/";
+        public Maze()
+        {
+            this.cols = 0;
+            this.rows = 0;
+
+        }
+        public Maze(string filePath, int rows, int cols)
+        {
+            if (File.Exists(filePath))
+            {
+                // Initialize matrix
+                string[] lines = File.ReadAllLines(filePath);
+                this.mapMatrix = new char[rows][];
+                int i, j;
+                for (i = 0; i < this.mapMatrix.Length; i++)
+                    this.mapMatrix[i] = new char[cols];
+
+                // Read a text file line by line.
+                i = 0;
+                foreach (string line in lines)
+                {
+                    char[] charPerLine = line.ToCharArray();
+                    j = 0;
+                    foreach (char huruf in charPerLine)
+                    {
+                        if (huruf != ' ')
+                        {
+                            // Console.WriteLine("this [" + i + ", " + j + "] = " + huruf);
+                            this.mapMatrix[i][j] = huruf;
+                            j++;
+                        }
+                    }
+                    i++;
+                }
+            }
+        }
         public void setRows(string filePath)
         {
             if (File.Exists(filePath))
@@ -45,35 +81,13 @@ namespace MazeMap
         {
             return this.cols;
         }
-        public void setMapMatrix(string filePath, int rows, int cols)
+        public void setMapMatrix(char[][] mapMatrix)
         {
-            if (File.Exists(filePath))
-            {
-                // Initialize matrix
-                string[] lines = File.ReadAllLines(filePath);
-                this.mapMatrix = new char[rows][];
-                int i, j;
-                for (i = 0; i < this.mapMatrix.Length; i++)
-                    this.mapMatrix[i] = new char[cols];
-
-                // Read a text file line by line.
-                i = 0;
-                foreach (string line in lines)
-                {
-                    char[] charPerLine = line.ToCharArray();
-                    j = 0;
-                    foreach (char huruf in charPerLine)
-                    {
-                        if (huruf != ' ')
-                        {
-                            // Console.WriteLine("this [" + i + ", " + j + "] = " + huruf);
-                            this.mapMatrix[i][j] = huruf;
-                            j++;
-                        }
-                    }
-                    i++;
-                }
-            }
+            this.mapMatrix = mapMatrix;
+        }
+        public char[][] getMapMatrix()
+        {
+            return this.mapMatrix;
         }
         public void setMapElement(char newElmt, int rows, int cols)
         {
@@ -82,10 +96,6 @@ namespace MazeMap
         public char getMapElement(int rows, int cols)
         {
             return this.mapMatrix[rows][cols];
-        }
-        public char[][] getMapMatrix()
-        {
-            return this.mapMatrix;
         }
         public void printMap(char[][] mapMatrix)
         {

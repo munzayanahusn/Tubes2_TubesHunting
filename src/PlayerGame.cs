@@ -1,7 +1,8 @@
 using System;
 using MazeMap;
+using Game;
 
-namespace Player
+namespace PlayerGame
 {
     class Position
     {
@@ -33,11 +34,13 @@ namespace Player
     class Player
     {
         protected Position currentPos;
+        protected Position firstPos;
         protected int[][] visited;
 
         public Player(Maze maze)
         {
             this.currentPos = new Position(0, 0); // Perlu exception kalau ga ada K
+            this.firstPos = new Position(0, 0); // Perlu exception kalau ga ada K
             this.visited = new int[maze.getRows()][];
             for (int i = 0; i < maze.getRows(); i++)
                 this.visited[i] = new int[maze.getCols()];
@@ -52,8 +55,9 @@ namespace Player
                     }
                     else if (maze.getMapElement(i, j) == 'K')
                     {
-                        this.currentPos.setX(i);
-                        this.currentPos.setY(j);
+                        this.firstPos.setX(i);
+                        this.firstPos.setY(j);
+                        this.setCurrentPosition(firstPos);
                         this.visited[i][j] = 0;
                     }
                     else
@@ -72,6 +76,36 @@ namespace Player
         {
             return this.currentPos;
         }
+        public void setFirstPosition(Position pos)
+        {
+            this.firstPos = pos;
+        }
+
+        public Position getFirstPosition()
+        {
+            return this.firstPos;
+        }
+        public void setVisitedMap(int[][] visitedMap)
+        {
+            this.visited = visitedMap;
+        }
+
+        public int[][] getVisitedMap()
+        {
+            return this.visited;
+        }
+        public int getNodeVisitedCount()
+        {
+            int res = 0;
+            foreach (int[] perRows in this.visited)
+            {
+                foreach (int node in perRows)
+                {
+                    if (node > 0) res++;
+                }
+            }
+            return res;
+        }
         public void Visit(int rows, int cols)
         {
             this.visited[rows][cols]++;
@@ -79,7 +113,7 @@ namespace Player
     }
     abstract class PlayerAction : Player
     {
-        List<char> route;
+        protected List<char> route;
         public PlayerAction(Maze maze) : base(maze)
         {
             this.route = new List<char>();
@@ -93,6 +127,16 @@ namespace Player
         public List<char> getRoute()
         {
             return this.route;
+        }
+        public void printRoute()
+        {
+            int i;
+            for (i = 0; i < this.route.Capacity; i++)
+            {
+                Console.Write(route[i]);
+                if (i < this.route.Capacity) Console.Write(" -> ");
+                else Console.WriteLine();
+            }
         }
         public void goToUp()
         {
@@ -142,6 +186,6 @@ namespace Player
         {
             return this.isUpVisited() && this.isDownVisited() && this.isRightVisited() && this.isLeftVisited();
         }
-        public abstract void setCurrentAction(); // Didefinisikan di kelas DFS BFS
+        public abstract void setCurrentAction(Maze maze, GameState game); // Didefinisikan di kelas DFS BFS
     }
 }

@@ -1,13 +1,13 @@
 using System;
 using MazeMap;
 
-namespace GameState
+namespace Game
 {
     class GameState
     {
-        private const char ROAD = 'R';
-        private const char OBSTACLES = 'X';
-        private const char TREASURE_PLACE = 'T';
+        public const char ROAD = 'R';
+        public const char OBSTACLES = 'X';
+        public const char TREASURE_PLACE = 'T';
         private int treasureCount;
 
         public GameState(char[][] maze)
@@ -21,5 +21,15 @@ namespace GameState
                 }
             }
         }
+
+        public void setTreasureCount(int treasureCount)
+        {
+            this.treasureCount = treasureCount;
+        }
+        public int getTreasureCount()
+        {
+            return this.treasureCount;
+        }
+
     }
 }

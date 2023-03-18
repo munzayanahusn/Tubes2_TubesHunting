@@ -1,5 +1,8 @@
 using System;
 using MazeMap;
+using Game;
+using PlayerGame;
+using DFSalgorithm;
 
 // dotnet run --project TubesHunting
 
@@ -9,9 +12,6 @@ namespace TubesHunting
     {
         static void Main(string[] args)
         {
-            // Map matriks
-            var mazeMap = new MazeMap.Maze();
-
             Console.Write("Masukkan nama file : ");
             string? fileName = Console.ReadLine();
             while (fileName == null)
@@ -22,41 +22,39 @@ namespace TubesHunting
             }
 
             string filePath = "../test/" + fileName + ".txt";
+
+            // Map matriks
+            Maze mazeMap = new MazeMap.Maze();
             mazeMap.setCols(filePath);
             mazeMap.setRows(filePath);
-            mazeMap.setMapMatrix(filePath, mazeMap.getRows(), mazeMap.getCols());
+            Maze mapTemp = new MazeMap.Maze(filePath, mazeMap.getRows(), mazeMap.getCols());
+            mazeMap.setMapMatrix(mapTemp.getMapMatrix());
             while (mazeMap.getCols() == 0)
             {
                 Console.WriteLine("File Not Found! Try Again");
                 Console.Write("Masukkan nama file : ");
                 fileName = Console.ReadLine();
                 filePath = "../test/" + fileName + ".txt";
-                mazeMap.getCols();
-                mazeMap.getRows();
-                mazeMap.setMapMatrix(filePath, mazeMap.getRows(), mazeMap.getCols());
+                mazeMap.setCols(filePath);
+                mazeMap.setRows(filePath);
+                mapTemp = new MazeMap.Maze(filePath, mazeMap.getRows(), mazeMap.getCols());
+                mazeMap.setMapMatrix(mapTemp.getMapMatrix());
             }
             mazeMap.printMap(mazeMap.getMapMatrix());
+            DFS d = new DFS(mazeMap);
+            GameState game = new GameState(mazeMap.getMapMatrix());
 
-            /*
-            MazeTreasure treasureHunt = new MazeTreasure(mapMatrix, 0, 0, 2);
-            Tuple<int, int, List<char>> steps = treasureHunt.TreasureHuntBFS();
-
-            if (steps.Item1 < 0)
+            if (game.getTreasureCount() <= 0)
             {
-                Console.WriteLine("Treasure not found!");
+                Console.WriteLine("There's no treasure!");
             }
             else
             {
-                Console.WriteLine("Treasure found in " + steps.Item1 + " steps!");
-                Console.WriteLine("Nodes: " + steps.Item2);
-                Console.Write("Direction: ");
-                for (int i = 0; i < steps.Item3.Count - 1; i++)
-                {
-                    Console.Write(steps.Item3[i] + " - ");
-                }
-                Console.Write(steps.Item3[steps.Item3.Count - 1] + "\n");
+                Console.WriteLine("Treasure found in " + d.getRoute().Capacity + " steps!");
+                Console.WriteLine("Nodes: " + d.getNodeVisitedCount());
+                Console.Write("Route: ");
+                d.printRoute();
             }
-            */
         }
     }
 }
