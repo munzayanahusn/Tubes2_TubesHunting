@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PROGRAM_KULIAH\\Tubes2_TubesHunting\\src\\TubesHunting.csproj": {}
+    "C:\\Users\\mfavi\\Documents\\VSCode\\Tubes2_TubesHunting\\src\\TubesHunting.csproj": {}
   },
   "projects": {
-    "D:\\PROGRAM_KULIAH\\Tubes2_TubesHunting\\src\\TubesHunting.csproj": {
+    "C:\\Users\\mfavi\\Documents\\VSCode\\Tubes2_TubesHunting\\src\\TubesHunting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PROGRAM_KULIAH\\Tubes2_TubesHunting\\src\\TubesHunting.csproj",
+        "projectUniqueName": "C:\\Users\\mfavi\\Documents\\VSCode\\Tubes2_TubesHunting\\src\\TubesHunting.csproj",
         "projectName": "TubesHunting",
-        "projectPath": "D:\\PROGRAM_KULIAH\\Tubes2_TubesHunting\\src\\TubesHunting.csproj",
-        "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-        "outputPath": "D:\\PROGRAM_KULIAH\\Tubes2_TubesHunting\\src\\obj\\",
+        "projectPath": "C:\\Users\\mfavi\\Documents\\VSCode\\Tubes2_TubesHunting\\src\\TubesHunting.csproj",
+        "packagesPath": "C:\\Users\\mfavi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mfavi\\Documents\\VSCode\\Tubes2_TubesHunting\\src\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\mfavi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -53,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

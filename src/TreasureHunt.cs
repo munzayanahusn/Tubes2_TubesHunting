@@ -51,10 +51,10 @@ namespace TubesHunting
 
                 if (maze[x][y] == TREASURE_PLACE)
                 {
-                    for (int i = 0; i < checkRoute.Count - 1; i++)
-                    {
-                        maze[checkRoute[i].Item1][checkRoute[i].Item2] = 'X';
-                    }
+                    // for (int i = 0; i < checkRoute.Count - 1; i++)
+                    // {
+                    //     maze[checkRoute[i].Item1][checkRoute[i].Item2] = 'X';
+                    // }
                     startX = x;
                     startY = y;
                     maze[x][y] = 'R';
@@ -100,7 +100,7 @@ namespace TubesHunting
                 }
             }
             // if treasure not found
-            return Tuple.Create(-1, nodes, new List<char>(), new List<Tuple<int, int>>());
+            return Tuple.Create(-1, nodes - 1, new List<char>(), new List<Tuple<int, int>>());
         }
 
         public Tuple<int, int, List<char>> TreasureHuntBFS()
