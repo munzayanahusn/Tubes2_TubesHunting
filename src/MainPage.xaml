@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TubesHunting.MainPage"
+             xmlns:local="clr-namespace:TubesHunting">
+    <Grid x:Name="rootgrid">
+
+       <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*" />
+            <RowDefinition Height="0.1*" />
+            <RowDefinition />
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="0.2*" />
+            <RowDefinition Height="0.3*" />
+            <RowDefinition Height="0.2*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.25*"/>
+            <ColumnDefinition Width="0.25*"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <!--row 0-->
+        <BoxView
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Color="#070707" />
+        <Label Text="Treasure Hunt Solver"
+            Grid.Row="0"
+            Grid.ColumnSpan="3"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            TextColor="White"/>
+
+        <!--row 1 col 0 1-->
+        <BoxView
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Color="#262827" />
+        <Label Text="Input"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+
+        <!--row 1 col 2-->
+        <BoxView
+            Grid.Row="1"
+            Grid.Column="2"
+            Color="#070707" />
+        <Label Text="Output"
+            Grid.Row="1"
+            Grid.Column="2"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+
+        <!--row 2 col 0 1 -->
+        <BoxView
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            Color="#262827" />
+        <Button x:Name="FilePickerButton"
+            Text="Input File"
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+         />
+
+        <!--row 3 col 0-->
+        <BoxView Grid.Column="0"
+            Grid.Row="3"
+            Color="#262827" />
+        <Label Grid.Column="0"
+            Grid.Row="3"
+            Text="BFS"
+            Margin="10"
+            HorizontalOptions="Start"
+            VerticalOptions="Center"
+            TextColor="White" />
+        <Switch IsToggled="False"
+            Grid.Column="0"
+            Grid.Row="3"
+            OnColor="#070707"
+            ThumbColor="#2BC19B"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"/>
+
+        <!--row 3 col 1-->
+        <BoxView Grid.Column="1"
+            Grid.Row="3"
+            Color="#262827" />
+        <Switch IsToggled="False"
+            Grid.Column="1"
+            Grid.Row="3"
+            OnColor="#070707"
+            ThumbColor="#2BC19B"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"/>
+
+        <!--row 2 col 2-->
+        <BoxView Grid.Column="2"
+            Grid.Row="2"
+            Color="#070707" />
+
+        <!--row 4 col 0 1 -->
+        <Slider Minimum="0" Maximum="3"
+            Grid.Row="4"
+            Grid.ColumnSpan="2"
+            WidthRequest="200"/>
+
+        <!--row 5 col 0 1 -->
+        <Button Grid.Row="5"
+            Grid.ColumnSpan="2"
+            Text="Visualize"
+            BackgroundColor="Black"
+            TextColor="White"/>
+
+        <!--row 6 -->
+        <BoxView x:Name="SearchButton"
+            Grid.Row="6"
+            Grid.ColumnSpan="3"
+            Color="#2BC19B" />
+        <Button Grid.Row="6"
+            Grid.ColumnSpan="3"
+            Text="Search"
+            BackgroundColor="#2BC19B"
+            TextColor="White"/>
+    </Grid>
+    <!--<ContentPage.BindingContext>
+        <local:MainPageViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150" />
+            <RowDefinition Height="50" />
+            <RowDefinition />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <BoxView
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Color="#070707" />
+        <Label Text="Treasure Hunt Solver"
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+
+        <BoxView
+            Grid.Row="1"
+            Grid.Column="0"
+            Color="#262827" />
+        <Label Text="Input"
+            Grid.Row="1"
+            Grid.Column="0"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+
+        <BoxView
+            Grid.Row="1"
+            Grid.Column="1"
+            Color="#070707" />
+        <Label Text="Output"
+            Grid.Row="1"
+            Grid.Column="1"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+
+        <BoxView Grid.Column="0"
+            Grid.Row="2"
+            Color="#262827" />
+        <Label Text="Row 1, Column 0"
+            Grid.Column="0"
+            Grid.Row="2"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+
+        <BoxView Grid.Column="1"
+            Grid.Row="2"
+            Color="#070707" />
+        <controls:DataGrid
+            Grid.Column="1"
+            Grid.Row="2"
+            ItemsSource="{Binding Items}"
+            Margin="30" />
+        <syncfusion:SfDataGrid
+              Grid.Column="1"
+              Grid.Row="2"
+              x:Name="dataGrid"
+              ItemsSource="{Binding Items}">
+        </syncfusion:SfDataGrid>
+
+        <BoxView Grid.Row="3"
+            Grid.ColumnSpan="2"
+            Color="#2BC19B" />
+        <Label Grid.Row="3"
+            Grid.ColumnSpan="2"
+            Text="Search"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+    </Grid>-->
+</ContentPage>
+
