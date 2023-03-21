@@ -34,22 +34,29 @@ namespace DFSalgorithm
         }
         public void depthFirstSearch(Position pos, Maze maze, GameState game)
         {
-            Visit(pos.getX(), pos.getY());
-
-            if (game.getTreasureCount() > 0 && !isAllAdjVisited())
+            Console.WriteLine("Treasure : " + game.getTreasureCount());
+            if (game.getTreasureCount() > 0)
             {
+                Visit(pos.getX(), pos.getY());
+
                 if (maze.getMapElement(pos.getX(), pos.getY()) == GameState.TREASURE_PLACE)
                 {
                     game.setTreasureCount(game.getTreasureCount() - 1);
+                    maze.setMapElement('R', pos.getX(), pos.getY());
                 }
-                // Prioritas Belok : Kanan, Bawah, Kiri, Atas
-                if (isAllAdjVisited()) backTrack();
+                // Prioritas Belok : Kiri, Bawah, Kanan, Atas
+                if (isAllAdjVisited())
+                {
+                    Console.Write(" -back- ");
+                    backTrack();
+                }
                 else
                 {
-                    if (!isRightVisited() && !inLeftBound()) goToRight();
-                    else if (!isRightVisited() && !inLeftBound()) goToDown();
-                    else if (!isRightVisited() && !inLeftBound()) goToLeft();
-                    else if (!isRightVisited() && !inLeftBound()) goToUp();
+                    Console.Write(" | '" + maze.getMapElement(pos.getX(), pos.getY()) + "' | ");
+                    if (isLeftVisitable()) goToLeft();
+                    else if (isDownVisitable()) goToDown();
+                    else if (isRightVisitable()) goToRight();
+                    else if (isUpVisitable()) goToUp();
                 }
                 depthFirstSearch(this.getCurrentPosition(), maze, game);
             }

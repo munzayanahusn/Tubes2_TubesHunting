@@ -43,20 +43,21 @@ namespace TubesHunting
             mazeMap.printMap(mazeMap.getMapMatrix());
             DFS d = new DFS(mazeMap);
             GameState game = new GameState(mazeMap.getMapMatrix());
-
-            d.setCurrentAction(mazeMap, game);
-
             if (game.getTreasureCount() <= 0)
             {
                 Console.WriteLine("There's no treasure!");
             }
             else
             {
+                Console.WriteLine("=== Route ====");
+                d.setCurrentAction(mazeMap, game);
+                Console.WriteLine();
                 Console.WriteLine("Treasure found in " + d.getRoute().Capacity + " steps!");
                 Console.WriteLine("Nodes: " + d.getNodeVisitedCount());
                 Console.Write("Route: ");
                 d.printRoute();
             }
+            Console.WriteLine();
         }
     }
 }

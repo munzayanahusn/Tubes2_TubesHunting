@@ -38,7 +38,7 @@ namespace MazeMap
                         if (huruf != ' ')
                         {
                             // Console.WriteLine("this [" + i + ", " + j + "] = " + huruf);
-                            this.mapMatrix[i][j] = huruf;
+                            this.mapMatrix[j][i] = huruf;
                             j++;
                         }
                     }
@@ -104,7 +104,7 @@ namespace MazeMap
             {
                 for (int j = 0; j < mapMatrix[0].Length; j++)
                 {
-                    Console.Write(mapMatrix[i][j]);
+                    Console.Write(mapMatrix[j][i]);
                     if (j < mapMatrix[0].Length - 1) Console.Write(" ");
                 }
                 Console.WriteLine();

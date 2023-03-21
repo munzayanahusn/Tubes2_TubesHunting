@@ -130,16 +130,16 @@ namespace PlayerGame
         }
         public void printRoute()
         {
-            int i;
-            for (i = 0; i < this.route.Capacity; i++)
+            for (int i = 0; i < this.route.Count; i++)
             {
                 Console.Write(route[i]);
-                if (i < this.route.Capacity) Console.Write(" -> ");
+                if (i < (this.route.Count - 1)) Console.Write(" -> ");
                 else Console.WriteLine();
             }
         }
         public void goToUp()
         {
+            Console.Write("-> U (" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY() + ")");
             this.route.Add('U');
             Position newPos = new Position(this.getCurrentPosition().getX(), this.getCurrentPosition().getY() - 1);
             this.visited[newPos.getX()][newPos.getY()]++;
@@ -147,6 +147,7 @@ namespace PlayerGame
         }
         public void goToDown()
         {
+            Console.Write("-> D (" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY() + ")");
             this.route.Add('D');
             Position newPos = new Position(this.getCurrentPosition().getX(), this.getCurrentPosition().getY() + 1);
             this.visited[newPos.getX()][newPos.getY()]++;
@@ -154,6 +155,7 @@ namespace PlayerGame
         }
         public void goToRight()
         {
+            Console.Write("-> R (" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY() + ")");
             this.route.Add('R');
             Position newPos = new Position(this.getCurrentPosition().getX() + 1, this.getCurrentPosition().getY());
             this.visited[newPos.getX()][newPos.getY()]++;
@@ -161,46 +163,35 @@ namespace PlayerGame
         }
         public void goToLeft()
         {
+            Console.Write("-> L (" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY() + ")");
             this.route.Add('L');
             Position newPos = new Position(this.getCurrentPosition().getX() - 1, this.getCurrentPosition().getY());
             this.visited[newPos.getX()][newPos.getY()]++;
             setCurrentPosition(newPos);
         }
-        public bool isUpVisited()
-        {
-            return this.visited[this.getCurrentPosition().getX()][this.getCurrentPosition().getY() - 1] == 0;
-        }
-        public bool isDownVisited()
-        {
-            return this.visited[this.getCurrentPosition().getX()][this.getCurrentPosition().getY() + 1] == 0;
-        }
-        public bool isLeftVisited()
-        {
-            return this.visited[this.getCurrentPosition().getX() - 1][this.getCurrentPosition().getY()] == 0;
-        }
-        public bool isRightVisited()
-        {
-            return this.visited[this.getCurrentPosition().getX() + 1][this.getCurrentPosition().getY()] == 0;
-        }
         public bool isAllAdjVisited()
         {
-            return this.isUpVisited() && this.isDownVisited() && this.isRightVisited() && this.isLeftVisited();
+            return !isRightVisitable() && !isDownVisitable() && !isLeftVisitable() && !isUpVisitable();
         }
-        public bool inUpBound()
+        public bool isUpVisitable()
         {
-            return this.getCurrentPosition().getY() == 0;
+            if (this.getCurrentPosition().getY() == 0) return false;
+            else return this.visited[this.getCurrentPosition().getX()][this.getCurrentPosition().getY() - 1] == 0;
         }
-        public bool inDownBound()
+        public bool isDownVisitable()
         {
-            return this.getCurrentPosition().getY() == this.getVisitedMap().Length - 1;
+            if (this.getCurrentPosition().getY() == this.getVisitedMap().Length - 1) return false;
+            else return this.visited[this.getCurrentPosition().getX()][this.getCurrentPosition().getY() + 1] == 0;
         }
-        public bool inLeftBound()
+        public bool isLeftVisitable()
         {
-            return this.getCurrentPosition().getX() == 0;
+            if (this.getCurrentPosition().getX() == 0) return false;
+            else return this.visited[this.getCurrentPosition().getX() - 1][this.getCurrentPosition().getY()] == 0;
         }
-        public bool inRightBound()
+        public bool isRightVisitable()
         {
-            return this.getCurrentPosition().getX() == this.getVisitedMap()[0].Length - 1;
+            if (this.getCurrentPosition().getX() == this.getVisitedMap()[0].Length - 1) return false;
+            else return this.visited[this.getCurrentPosition().getX() + 1][this.getCurrentPosition().getY()] == 0;
         }
         public abstract void setCurrentAction(Maze maze, GameState game); // Didefinisikan di kelas DFS BFS
     }

@@ -9,6 +9,7 @@ namespace Game
         public const char OBSTACLES = 'X';
         public const char TREASURE_PLACE = 'T';
         private int treasureCount;
+        //private bool toogle;
 
         public GameState(char[][] maze)
         {
