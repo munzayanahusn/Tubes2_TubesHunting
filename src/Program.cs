@@ -4,6 +4,7 @@ using Game;
 using ExplorerState;
 using DFSalgorithm;
 using BFSalgorithm;
+using System.Diagnostics;
 
 namespace TubesHunting
 {
@@ -64,17 +65,19 @@ namespace TubesHunting
                     ans = Console.ReadLine();
                 }
 
+                // Memulai perhitungan waktu eksekusi
+                var watch = Stopwatch.StartNew();
                 if (ans == "BFS" || ans == "bfs")
                 {
                     // Lakukan penelusuran dengan Breadth-First-Search
+                    watch = Stopwatch.StartNew();
                     BFS b = new BFS(mazeMap);
                     b.setCurrentAction(mazeMap, game);
+                    watch.Stop();
                 }
                 else if (ans == "DFS" || ans == "dfs")
                 {
                     // Lakukan penelusuran dengan Breadth-First-Search
-                    DFS d = new DFS(mazeMap);
-                    d.setCurrentAction(mazeMap, game);
 
                     Console.Write("Lanjutkan hingga kembali ke titik awal : TSP (Y/N)? ");
                     ans = Console.ReadLine();
@@ -85,12 +88,16 @@ namespace TubesHunting
                         ans = Console.ReadLine();
                     }
 
+                    watch = Stopwatch.StartNew();
+                    DFS d = new DFS(mazeMap);
+                    d.setCurrentAction(mazeMap, game);
                     if (ans == "Y" || ans == "y")
                     {
                         // Penelusuran kembali ke titik awal
                         d.TSPSetupDFS(d.getCurrentPosition(), mazeMap, game);
                         d.setCurrentAction(mazeMap, game);
                     }
+                    watch.Stop();
 
                     // Mencetak informasi penelusuran
                     Console.WriteLine("Treasure found in " + d.getRoute().Count + " steps!");
@@ -101,7 +108,29 @@ namespace TubesHunting
                     d.setNodes(d.countNodes());
                     Console.WriteLine("Node: " + d.getNodes());
                 }
+                Console.WriteLine($"Execution Time : {watch.ElapsedMilliseconds} ms");
             }
         }
     }
 }
+
+/*
+      // Starting the Stopwatch
+    var watch = Stopwatch.StartNew();
+      
+      // Iterating using for loop
+    for(int i = 0; i < 5; i++) 
+    {
+          
+        // Print on console
+        Console.WriteLine("GeeksforGeeks");
+    }
+      
+      // Stop the Stopwatch
+    watch.Stop();    
+      
+      // Print the execution time in milliseconds
+      // by using the property elapsed milliseconds
+      Console.WriteLine(
+          $"The Execution time of the program is {watch.ElapsedMilliseconds}ms");
+*/
