@@ -12,10 +12,10 @@ namespace BFSalgorithm
 
         public override void setCurrentAction(Maze maze, GameState game)
         {
-            breadthFirstSearch(this.firstPos, maze, game);
+            breadthFirstSearch(this.firstPos, maze, game, 0);
         }
 
-        public void breadthFirstSearch(Position pos, Maze maze, GameState game)
+        public void breadthFirstSearch(Position pos, Maze maze, GameState game, int nodes)
         {
             // Prioritas Belok : Kiri, Bawah, Kanan, Atas
             int[] dx = { 0, 1, 0, -1 };
@@ -39,6 +39,7 @@ namespace BFSalgorithm
                     this.setCurrentPosition(currentPos);
                     this.setRoute(current.route);
                     int steps = current.steps;
+                    nodes++;
 
                     if (maze.getMapElement(currentPos.getX(), currentPos.getY()) == GameState.TREASURE_PLACE)
                     {
@@ -47,11 +48,11 @@ namespace BFSalgorithm
                         if (game.getTreasureCount() == 0)
                         {
                             Console.WriteLine("Treasure found in " + this.getRoute().Count + " steps!");
-                            Console.WriteLine("Nodes: " + this.getNodeVisitedCount());
+                            Console.WriteLine("Nodes: " + nodes);
                             Console.Write("Route: ");
                             this.printRoute();
                         }
-                        breadthFirstSearch(currentPos, maze, game);
+                        breadthFirstSearch(currentPos, maze, game, nodes);
                     }
 
                     for (int i = 0; i < 4; i++)
