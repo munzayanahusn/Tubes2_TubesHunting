@@ -2,17 +2,29 @@ using System;
 using MazeMap;
 using Game;
 
-namespace PlayerGame
+namespace ExplorerState
 {
+    // Position Class bertanggung jawab untuk mendefinisikan tipe posisi dengan sistem koordinat kartesian pada sumbu-x dan sumbu-y
     class Position
     {
+        /* Attributes */
         private int x;
         private int y;
+
+        /* Method */
+        // Default Constructor
+        public Position()
+        {
+            this.x = 0;
+            this.y = 0;
+        }
+        // User-defined Constructor
         public Position(int x, int y)
         {
             this.x = x;
             this.y = y;
         }
+        // Getter dan Setter setiap atribut
         public void setX(int x)
         {
             this.x = x;
@@ -30,18 +42,21 @@ namespace PlayerGame
             return this.y;
         }
     }
-
-    class Player
+    // Explorer Class bertanggung jawab atas kondisi penelusuran setiap waktu
+    class Explorer
     {
+        /* Attributes */
         protected Position currentPos;
         protected Position firstPos;
         protected int[][] visited;
         protected List<Tuple<int, int>> coorVisited;
 
-        public Player(Maze maze)
+        /* Method */
+        // Constructor
+        public Explorer(Maze maze)
         {
-            this.currentPos = new Position(0, 0); // Perlu exception kalau ga ada K
-            this.firstPos = new Position(0, 0); // Perlu exception kalau ga ada K
+            this.currentPos = new Position();
+            this.firstPos = new Position();
             this.visited = new int[maze.getRows()][];
             this.coorVisited = new List<Tuple<int, int>>();
             for (int i = 0; i < maze.getRows(); i++)
@@ -49,11 +64,11 @@ namespace PlayerGame
 
             setInitVisitedMap(maze);
         }
+        // Getter dan Setter setiap atribut
         public void setCurrentPosition(Position pos)
         {
             this.currentPos = pos;
         }
-
         public Position getCurrentPosition()
         {
             return this.currentPos;
@@ -67,6 +82,14 @@ namespace PlayerGame
         {
             return this.firstPos;
         }
+        public void setCoorVisited(List<Tuple<int, int>> coorVisited)
+        {
+            this.coorVisited = coorVisited;
+        }
+        public List<Tuple<int, int>> getCoorVisited()
+        {
+            return this.coorVisited;
+        }
         public void setVisitedMap(int[][] visitedMap)
         {
             this.visited = visitedMap;
@@ -75,6 +98,7 @@ namespace PlayerGame
         {
             return this.visited;
         }
+        // Inisialisasi awal visited map belum ada node yang dikunjungi
         public void setInitVisitedMap(Maze maze)
         {
             for (int i = 0; i < maze.getRows(); i++)
@@ -99,6 +123,7 @@ namespace PlayerGame
                 }
             }
         }
+        // Mencetak visited map, untuk debugging
         public void printVisitedMap()
         {
             for (int i = 0; i < visited.Length; i++)
@@ -110,33 +135,38 @@ namespace PlayerGame
                 Console.WriteLine();
             }
         }
-        public int getNodeVisitedCount()
+        // Mencetak rute pengunjungan map, untuk debugging
+        public void printCoorVisited()
         {
-            int res = 0;
-            foreach (int[] perRows in this.visited)
+            foreach (Tuple<int, int> i in this.getCoorVisited())
             {
-                foreach (int node in perRows)
-                {
-                    if (node > 0) res++;
-                }
+                Console.Write(" (" + i.Item1 + "," + i.Item2 + ") ");
             }
-            return res;
+            Console.WriteLine();
         }
+        // Mengunjungi sebuah node pada baris dan kolom tertentu
         public void Visit(int rows, int cols)
         {
             coorVisited.Add(Tuple.Create(rows, cols));
             this.visited[rows][cols]++;
         }
     }
-    abstract class PlayerAction : Player
+    // ExplorerAction Class bertanggung jawab atas setiap aksi perpindahan dalam penelusuran.
+    // ExplorerAction Class adalah kelas turunan dari Explorer Class dan merupakan kelas abstrak
+    abstract class ExplorerAction : Explorer
     {
+        /* Attributes */
         protected List<char> route;
         protected int nodes;
-        public PlayerAction(Maze maze) : base(maze)
+
+        /* Method */
+        // Constructor
+        public ExplorerAction(Maze maze) : base(maze)
         {
             this.route = new List<char>();
             nodes = 0;
         }
+        // Getter dan Setter
         public void setRoute(List<char> Route)
         {
             this.route = new List<char>(Route);
@@ -146,6 +176,21 @@ namespace PlayerGame
         {
             return this.route;
         }
+        public void setNodes(int nodes)
+        {
+            this.nodes = nodes;
+        }
+        public int getNodes()
+        {
+            return this.nodes;
+        }
+        // Menghitung banyak node yang dikunjungi
+        public int countNodes()
+        {
+            int res = (from item in this.getCoorVisited() select item).Distinct().Count();
+            return res;
+        }
+        // Mencetak rute penelusuran
         public void printRoute()
         {
             for (int i = 0; i < this.route.Count; i++)
@@ -155,9 +200,9 @@ namespace PlayerGame
                 else Console.WriteLine();
             }
         }
+        // Implementasi pergerakan dalam penelusuran
         public void goToUp()
         {
-            Console.Write("-> U (" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY() + ")");
             this.route.Add('U');
             Position newPos = new Position(this.getCurrentPosition().getX(), this.getCurrentPosition().getY() - 1);
             Visit(newPos.getY(), newPos.getX());
@@ -165,7 +210,6 @@ namespace PlayerGame
         }
         public void goToDown()
         {
-            Console.Write("-> D (" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY() + ")");
             this.route.Add('D');
             Position newPos = new Position(this.getCurrentPosition().getX(), this.getCurrentPosition().getY() + 1);
             Visit(newPos.getY(), newPos.getX());
@@ -173,7 +217,6 @@ namespace PlayerGame
         }
         public void goToRight()
         {
-            Console.Write("-> R (" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY() + ")");
             this.route.Add('R');
             Position newPos = new Position(this.getCurrentPosition().getX() + 1, this.getCurrentPosition().getY());
             Visit(newPos.getY(), newPos.getX());
@@ -181,12 +224,12 @@ namespace PlayerGame
         }
         public void goToLeft()
         {
-            Console.Write("-> L (" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY() + ")");
             this.route.Add('L');
             Position newPos = new Position(this.getCurrentPosition().getX() - 1, this.getCurrentPosition().getY());
             Visit(newPos.getY(), newPos.getX());
             setCurrentPosition(newPos);
         }
+        // Melakukan pengecekan adjacent node yang dapat dikunjungi
         public bool isAllAdjVisited()
         {
             return !isRightVisitable() && !isDownVisitable() && !isLeftVisitable() && !isUpVisitable();
@@ -211,6 +254,8 @@ namespace PlayerGame
             if (this.getCurrentPosition().getX() == this.getVisitedMap()[0].Length - 1) return false;
             else return this.visited[this.getCurrentPosition().getY()][this.getCurrentPosition().getX() + 1] == 0;
         }
-        public abstract void setCurrentAction(Maze maze, GameState game); // Didefinisikan di kelas DFS BFS
+        // Pemilihan aksi perpindahan/pergerakan setiap waktu
+        // Didefinisikan sebagai abstract method untuk didefinisikan di kelas DFS dan BFS
+        public abstract void setCurrentAction(Maze maze, GameState game);
     }
 }

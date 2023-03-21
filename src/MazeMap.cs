@@ -2,20 +2,25 @@ using System;
 
 namespace MazeMap
 {
+    // Maze Class bertanggung jawab terhadap segala hal berkaitan dengan peta permainan,
+    // termasuk pembacaan peta dari file, validasi input map, serta pencetakan map untuk mempermudah debugging.
     public class Maze
     {
-        // Attributes
+        /* Attributes */
         public char[][] mapMatrix = { };
         private int rows;
         private int cols;
-        // Default folder
-        public static readonly string rootFolder = "../test/";
+
+        /* Attributes */
+        // Default constructor
         public Maze()
         {
+            this.mapMatrix = new char[0][];
             this.cols = 0;
             this.rows = 0;
 
         }
+        // User-defined constructor
         public Maze(string filePath, int rows, int cols)
         {
             if (File.Exists(filePath))
@@ -23,11 +28,13 @@ namespace MazeMap
                 // Initialize matrix
                 string[] lines = File.ReadAllLines(filePath);
                 this.mapMatrix = new char[rows][];
+
+                // Initialize matrix rows and columns
                 int i, j;
                 for (i = 0; i < this.mapMatrix.Length; i++)
                     this.mapMatrix[i] = new char[cols];
 
-                // Read a text file line by line.
+                // Read a text file line by line, input nilai matrix
                 i = 0;
                 foreach (string line in lines)
                 {
@@ -37,7 +44,6 @@ namespace MazeMap
                     {
                         if (huruf != ' ')
                         {
-                            // Console.WriteLine("this [" + i + ", " + j + "] = " + huruf);
                             this.mapMatrix[i][j] = huruf;
                             j++;
                         }
@@ -46,6 +52,7 @@ namespace MazeMap
                 }
             }
         }
+        // Getter dan Setter setiap atribut kelas
         public void setRows(string filePath)
         {
             if (File.Exists(filePath))
@@ -72,7 +79,6 @@ namespace MazeMap
             }
             else this.cols = 0;
         }
-
         public int getRows()
         {
             return this.rows;
@@ -89,17 +95,19 @@ namespace MazeMap
         {
             return this.mapMatrix;
         }
+        // Getter suatu elemen pada map pada baris dan kolom tertentu
         public void setMapElement(char newElmt, int rows, int cols)
         {
             this.mapMatrix[rows][cols] = newElmt;
         }
+        // Setter suatu elemen pada map pada baris dan kolom tertentu
         public char getMapElement(int rows, int cols)
         {
             return this.mapMatrix[rows][cols];
         }
+        // Mencetak map pada layar, untuk debugging
         public void printMap(char[][] mapMatrix)
         {
-            // Console.WriteLine("Lenght = " + mapMatrix.Length + " - " + mapMatrix[0].Length);
             for (int i = 0; i < mapMatrix.Length; i++)
             {
                 for (int j = 0; j < mapMatrix[0].Length; j++)

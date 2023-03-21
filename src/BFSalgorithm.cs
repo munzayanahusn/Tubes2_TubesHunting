@@ -1,23 +1,26 @@
 using System;
 using System.Collections.Generic;
-using PlayerGame;
+using ExplorerState;
 using MazeMap;
 using Game;
 
 namespace BFSalgorithm
 {
-    class BFS : PlayerAction
+    // BFSalgorithm Class bertanggung jawab atas setiap aksi perpindahan dalam penelusuran dengan algoritma Breadth-First-Search
+    // BFSalgorithm Class adalah kelas turunan dari ExplorerAction Class
+    class BFS : ExplorerAction
     {
+        /* Method */
+        // Constructor
         public BFS(Maze maze) : base(maze) { }
-
+        // Pemilihan aksi perpindahan/pergerakan setiap waktu dengan algoritma Breadth-First-Search
         public override void setCurrentAction(Maze maze, GameState game)
         {
             breadthFirstSearch(this.firstPos, maze, game);
         }
-
+        // Implementasi algoritma breadth-first-search
         public void breadthFirstSearch(Position pos, Maze maze, GameState game)
         {
-            Console.WriteLine(pos.getY() + " " + pos.getX());
             // Prioritas Belok : Kiri, Bawah, Kanan, Atas
             int[] dx = { -1, 0, 1, 0 };
             int[] dy = { 0, 1, 0, -1 };
@@ -93,7 +96,7 @@ namespace BFSalgorithm
                 this.printRoute();
                 Console.WriteLine("Nodes: " + this.nodes);
 
-                Console.Write("TFS ga (Y/n)? ");
+                Console.Write("Lanjutkan hingga kembali ke titik awal : TSP (Y/N)? ");
                 string? ans = Console.ReadLine();
                 while (ans != "Y" && ans != "y" && ans != "N" && ans != "n")
                 {
@@ -111,7 +114,7 @@ namespace BFSalgorithm
                 }
             }
         }
-
+        // Implementasi penelusuran untuk kembali ke titik awal (TSP Problem) dengan algoritma Breadth-First-Search
         public void TSP_BFS(Position lastPos, Position firstPos, Maze maze)
         {
             int[] dx = { -1, 0, 1, 0 };
