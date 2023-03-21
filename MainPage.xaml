@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TubesHunting.MainPage"
+             xmlns:local="clr-namespace:TubesHunting">
+    <Grid x:Name="rootgrid">
+
+       <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*" />
+            <RowDefinition Height="0.1*" />
+            <RowDefinition />
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="0.2*" />
+            <RowDefinition Height="0.3*" />
+            <RowDefinition Height="0.2*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.25*"/>
+            <ColumnDefinition Width="0.25*"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <!--row 0-->
+        <BoxView
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Color="#070707" />
+        <Label Text="Treasure Hunt Solver"
+            Grid.Row="0"
+            Grid.ColumnSpan="3"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            TextColor="White"/>
+
+        <!--row 1 col 0 1-->
+        <BoxView
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Color="#262827" />
+        <Label Text="Input"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+
+        <!--row 1 col 2-->
+        <BoxView
+            Grid.Row="1"
+            Grid.Column="2"
+            Color="#070707" />
+        <Label Text="Output"
+            Grid.Row="1"
+            Grid.Column="2"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+
+        <!--row 2 col 0 1 -->
+        <Button x:Name="FilePickerButton"
+            Text="Input File"
+            Clicked="FilePickerButton_Clicked"
+            BackgroundColor="#262827"
+            TextColor="White"
+            Grid.Row="2"
+            Grid.ColumnSpan="2" />
+
+        <!--row 3 col 0-->
+        <BoxView Grid.Column="0"
+            Grid.Row="3"
+            Color="#262827" />
+        <Label Grid.Column="0"
+            Grid.Row="3"
+            Text="BFS"
+            Margin="10"
+            HorizontalOptions="Start"
+            VerticalOptions="Center"
+            TextColor="White" />
+        <Switch x:Name="AlgorithmSwitch"
+            IsToggled="False"
+            Grid.Column="0"
+            Grid.Row="3"
+            OnColor="#070707"
+            ThumbColor="#2BC19B"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Toggled="AlgorithmSwitch_Toggled"/>
+
+        <!--row 3 col 1-->
+        <BoxView Grid.Column="1"
+            Grid.Row="3"
+            Color="#262827" />
+        <Switch x:Name="TSPSwitch"
+            IsToggled="False"
+            Grid.Column="1"
+            Grid.Row="3"
+            OnColor="#070707"
+            ThumbColor="#2BC19B"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Toggled="TSPSwitch_Toggled"/>
+
+        <!--row 2 col 2-->
+        <BoxView Grid.Column="2"
+            Grid.Row="2"
+            Color="#070707" />
+
+        <!--row 4 col 0 1 -->
+        <Slider x:Name="TimeSlider"
+            Minimum="0" Maximum="3"
+            Grid.Row="4"
+            Grid.ColumnSpan="2"
+            WidthRequest="200"
+            ValueChanged="TimeSlider_ValueChanged"/>
+
+        <!--row 5 col 0 1 -->
+        <Button x:Name="VisualizeButton"
+            Grid.Row="5"
+            Grid.ColumnSpan="2"
+            Text="Visualize"
+            BackgroundColor="Black"
+            TextColor="White"
+            Clicked="VisualizeButton_Clicked"/>
+
+        <!--row 6 -->
+        <Button x:Name="SearchButton"
+            Grid.Row="6"
+            Grid.ColumnSpan="3"
+            Text="Search"
+            BackgroundColor="#2BC19B"
+            TextColor="White"
+            Clicked="SearchButton_Clicked"/>
+    </Grid>
+</ContentPage>
+
