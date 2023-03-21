@@ -12,15 +12,15 @@ namespace BFSalgorithm
 
         public override void setCurrentAction(Maze maze, GameState game)
         {
-            breadthFirstSearch(this.firstPos, maze, game, 0);
+            breadthFirstSearch(this.firstPos, maze, game);
         }
 
-        public void breadthFirstSearch(Position pos, Maze maze, GameState game, int nodes)
+        public void breadthFirstSearch(Position pos, Maze maze, GameState game)
         {
-            Console.WriteLine(pos.getX() + " " + pos.getY());
+            Console.WriteLine(pos.getY() + " " + pos.getX());
             // Prioritas Belok : Kiri, Bawah, Kanan, Atas
-            int[] dx = { 0, 1, 0, -1 };
-            int[] dy = { -1, 0, 1, 0 };
+            int[] dx = { -1, 0, 1, 0 };
+            int[] dy = { 0, 1, 0, -1 };
             bool[,] visitedState = new bool[maze.getRows(), maze.getCols()];
 
             int startX = pos.getX();
@@ -39,13 +39,13 @@ namespace BFSalgorithm
                     Position currentPos = new Position(current.x, current.y);
                     this.setCurrentPosition(currentPos);
                     this.setRoute(current.route);
-                    nodes++;
+                    this.nodes++;
 
                     if (maze.getMapElement(currentPos.getY(), currentPos.getX()) == GameState.TREASURE_PLACE)
                     {
                         maze.setMapElement(GameState.ROAD, currentPos.getY(), currentPos.getX());
                         game.setTreasureCount(game.getTreasureCount() - 1);
-                        breadthFirstSearch(currentPos, maze, game, nodes);
+                        breadthFirstSearch(currentPos, maze, game);
                     }
 
                     for (int i = 0; i < 4; i++)
@@ -53,13 +53,13 @@ namespace BFSalgorithm
                         int newX = currentPos.getX() + dx[i];
                         int newY = currentPos.getY() + dy[i];
 
-                        if (newX < 0 || newX >= maze.getRows() || newY < 0 || newY >= maze.getCols())
+                        if (newX < 0 || newY >= maze.getRows() || newY < 0 || newX >= maze.getCols())
                         {
                             continue;
                         }
 
-                        if (maze.getMapElement(newX, newY) == GameState.OBSTACLES
-                            || visitedState[newX, newY])
+                        if (maze.getMapElement(newY, newX) == GameState.OBSTACLES
+                            || visitedState[newY, newX])
                         {
                             continue;
                         }
@@ -80,8 +80,8 @@ namespace BFSalgorithm
                                 newRoute.Add('U');
                                 break;
                         }
-                        Visit(newX, newY);
-                        visitedState[newX, newY] = true;
+                        Visit(newY, newX);
+                        visitedState[newY, newX] = true;
                         q.Enqueue((newX, newY, newRoute));
                     }
                 }
@@ -89,9 +89,9 @@ namespace BFSalgorithm
             else
             {
                 Console.WriteLine("Treasure found in " + this.getRoute().Count + " steps!");
-                Console.WriteLine("Nodes: " + nodes);
                 Console.Write("Route: ");
                 this.printRoute();
+                Console.WriteLine("Nodes: " + this.nodes);
 
                 Console.Write("TFS ga (Y/n)? ");
                 string? ans = Console.ReadLine();
@@ -103,8 +103,7 @@ namespace BFSalgorithm
                 }
                 if (ans == "Y" || ans == "y")
                 {
-                    int TSPnodes = 0;
-                    TSP_BFS(pos, getFirstPosition(), maze, TSPnodes);
+                    TSP_BFS(pos, getFirstPosition(), maze);
                 }
                 else if (ans == "N" || ans == "n")
                 {
@@ -113,18 +112,20 @@ namespace BFSalgorithm
             }
         }
 
-        public void TSP_BFS(Position lastPos, Position firstPos, Maze maze, int nodes)
+        public void TSP_BFS(Position lastPos, Position firstPos, Maze maze)
         {
-            int[] dx = { 0, 1, 0, -1 };
-            int[] dy = { -1, 0, 1, 0 };
+            int[] dx = { -1, 0, 1, 0 };
+            int[] dy = { 0, 1, 0, -1 };
             bool[,] visitedState = new bool[maze.getRows(), maze.getCols()];
 
             int startX = lastPos.getX();
             int startY = lastPos.getY();
-            maze.setMapElement('S', startX, startY);
+            maze.setMapElement('S', startY, startX);
 
             int finalX = firstPos.getX();
             int finalY = firstPos.getY();
+
+            int nodesTSP = 0;
 
             Queue<(int x, int y, List<char> route)> q = new Queue<(int, int, List<char>)>();
             q.Enqueue((startX, startY, new List<char>()));
@@ -137,15 +138,17 @@ namespace BFSalgorithm
                 Position currentPos = new Position(current.x, current.y);
                 this.setCurrentPosition(currentPos);
                 this.setRoute(current.route);
-                nodes++;
+                this.nodes++;
+                nodesTSP++;
 
                 if (current.x == finalX && current.y == finalY)
                 {
                     maze.printMap(maze.getMapMatrix());
-                    Console.WriteLine("Lah balik in " + this.getRoute().Count + " steps!");
-                    Console.WriteLine("Nodes: " + nodes);
+                    Console.WriteLine("You came back in " + this.getRoute().Count + " steps!");
                     Console.Write("Route: ");
                     this.printRoute();
+                    Console.WriteLine("Nodes on the way back: " + nodesTSP);
+                    Console.WriteLine("Total Nodes: " + this.nodes);
                 }
 
                 for (int i = 0; i < 4; i++)
@@ -153,13 +156,13 @@ namespace BFSalgorithm
                     int newX = currentPos.getX() + dx[i];
                     int newY = currentPos.getY() + dy[i];
 
-                    if (newX < 0 || newX >= maze.getRows() || newY < 0 || newY >= maze.getCols())
+                    if (newX < 0 || newY >= maze.getRows() || newY < 0 || newX >= maze.getCols())
                     {
                         continue;
                     }
 
-                    if (maze.getMapElement(newX, newY) == GameState.OBSTACLES
-                        || visitedState[newX, newY])
+                    if (maze.getMapElement(newY, newX) == GameState.OBSTACLES
+                        || visitedState[newY, newX])
                     {
                         continue;
                     }
@@ -180,8 +183,8 @@ namespace BFSalgorithm
                             newRoute.Add('U');
                             break;
                     }
-                    Visit(newX, newY);
-                    visitedState[newX, newY] = true;
+                    Visit(newY, newX);
+                    visitedState[newY, newX] = true;
                     q.Enqueue((newX, newY, newRoute));
                 }
             }

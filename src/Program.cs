@@ -5,8 +5,6 @@ using PlayerGame;
 using DFSalgorithm;
 using BFSalgorithm;
 
-// dotnet run --project TubesHunting
-
 namespace TubesHunting
 {
     class Program
@@ -43,13 +41,13 @@ namespace TubesHunting
             }
             mazeMap.printMap(mazeMap.getMapMatrix());
             GameState game = new GameState(mazeMap.getMapMatrix());
-            Console.WriteLine(game.getTreasureCount());
             if (game.getTreasureCount() <= 0)
             {
                 Console.WriteLine("There's no treasure!");
             }
             else
             {
+                Console.WriteLine("Treasure : " + game.getTreasureCount());
                 Console.Write("BFS or DFS (B/D)? ");
                 string? ans = Console.ReadLine();
                 if (ans == "B")

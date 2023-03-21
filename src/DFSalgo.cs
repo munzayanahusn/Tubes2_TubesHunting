@@ -3,8 +3,6 @@ using PlayerGame;
 using MazeMap;
 using Game;
 
-// dotnet run --project TubesHunting
-
 namespace DFSalgorithm
 {
     class DFS : PlayerAction
@@ -43,7 +41,7 @@ namespace DFSalgorithm
                 if (maze.getMapElement(pos.getY(), pos.getX()) == GameState.TREASURE_PLACE)
                 {
                     maze.setMapElement('R', pos.getY(), pos.getX());
-                    Console.WriteLine("This " + maze.getMapElement(pos.getY(), pos.getX()));
+                    // Console.WriteLine("This " + maze.getMapElement(pos.getY(), pos.getX()));
                     game.setTreasureCount(game.getTreasureCount() - 1);
                     if (game.getTreasureCount() == 0) return;
                 }

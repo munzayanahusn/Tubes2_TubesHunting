@@ -131,9 +131,11 @@ namespace PlayerGame
     abstract class PlayerAction : Player
     {
         protected List<char> route;
+        protected int nodes;
         public PlayerAction(Maze maze) : base(maze)
         {
             this.route = new List<char>();
+            nodes = 0;
         }
         public void setRoute(List<char> Route)
         {
