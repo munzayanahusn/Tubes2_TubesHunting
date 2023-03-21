@@ -62,7 +62,7 @@ namespace PlayerGame
                         this.setCurrentPosition(firstPos);
                         this.visited[i][j] = 0;
                     }
-                    else
+                    else if (maze.getMapElement(i, j) == 'R')
                     {
                         this.visited[i][j] = 0;
                     }

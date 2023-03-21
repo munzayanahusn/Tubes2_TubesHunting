@@ -42,8 +42,6 @@ namespace TubesHunting
                 mazeMap.setMapMatrix(mapTemp.getMapMatrix());
             }
             mazeMap.printMap(mazeMap.getMapMatrix());
-            // DFS d = new DFS(mazeMap);
-            BFS b = new BFS(mazeMap);
             GameState game = new GameState(mazeMap.getMapMatrix());
             Console.WriteLine(game.getTreasureCount());
             if (game.getTreasureCount() <= 0)
@@ -52,13 +50,24 @@ namespace TubesHunting
             }
             else
             {
-                Console.WriteLine("=== Route ====");
-                b.setCurrentAction(mazeMap, game);
-                Console.WriteLine();
-                Console.WriteLine("Treasure found in " + b.getRoute().Count + " steps!");
-                // Console.WriteLine("Nodes: " + b.getNodeVisitedCount());
-                Console.Write("Route: ");
-                b.printRoute();
+                Console.Write("BFS or DFS (B/D)? ");
+                string? ans = Console.ReadLine();
+                if (ans == "B")
+                {
+                    BFS b = new BFS(mazeMap);
+                    b.setCurrentAction(mazeMap, game);
+                }
+                else if (ans == "D")
+                {
+                    DFS d = new DFS(mazeMap);
+                    d.setCurrentAction(mazeMap, game);
+                    Console.WriteLine("=== Route ====");
+                    Console.WriteLine();
+                    Console.WriteLine("Treasure found in " + d.getRoute().Count + " steps!");
+                    Console.WriteLine("Nodes: " + d.getNodeVisitedCount());
+                    Console.Write("Route: ");
+                    d.printRoute();
+                }
             }
             Console.WriteLine();
         }
