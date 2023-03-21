@@ -25,8 +25,8 @@ namespace BFSalgorithm
             int startX = pos.getX();
             int startY = pos.getY();
 
-            Queue<(int x, int y, int steps, List<char> route)> q = new Queue<(int, int, int, List<char>)>();
-            q.Enqueue((startX, startY, 0, this.getRoute()));
+            Queue<(int x, int y, List<char> route)> q = new Queue<(int, int, List<char>)>();
+            q.Enqueue((startX, startY, this.getRoute()));
 
             if (game.getTreasureCount() > 0)
             {
@@ -38,20 +38,12 @@ namespace BFSalgorithm
                     Position currentPos = new Position(current.x, current.y);
                     this.setCurrentPosition(currentPos);
                     this.setRoute(current.route);
-                    int steps = current.steps;
                     nodes++;
 
                     if (maze.getMapElement(currentPos.getX(), currentPos.getY()) == GameState.TREASURE_PLACE)
                     {
                         maze.setMapElement(GameState.ROAD, currentPos.getX(), currentPos.getY());
                         game.setTreasureCount(game.getTreasureCount() - 1);
-                        if (game.getTreasureCount() == 0)
-                        {
-                            Console.WriteLine("Treasure found in " + this.getRoute().Count + " steps!");
-                            Console.WriteLine("Nodes: " + nodes);
-                            Console.Write("Route: ");
-                            this.printRoute();
-                        }
                         breadthFirstSearch(currentPos, maze, game, nodes);
                     }
 
@@ -89,11 +81,17 @@ namespace BFSalgorithm
                         }
                         Visit(newX, newY);
                         visitedState[newX, newY] = true;
-                        q.Enqueue((newX, newY, steps + 1, newRoute));
+                        q.Enqueue((newX, newY, newRoute));
                     }
                 }
             }
-            else return;
+            else
+            {
+                Console.WriteLine("Treasure found in " + this.getRoute().Count + " steps!");
+                Console.WriteLine("Nodes: " + nodes);
+                Console.Write("Route: ");
+                this.printRoute();
+            }
         }
     }
 }

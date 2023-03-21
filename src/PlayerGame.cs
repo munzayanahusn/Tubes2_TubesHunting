@@ -36,12 +36,14 @@ namespace PlayerGame
         protected Position currentPos;
         protected Position firstPos;
         protected int[][] visited;
+        protected List<Tuple<int, int>> coorVisited;
 
         public Player(Maze maze)
         {
             this.currentPos = new Position(0, 0); // Perlu exception kalau ga ada K
             this.firstPos = new Position(0, 0); // Perlu exception kalau ga ada K
             this.visited = new int[maze.getRows()][];
+            this.coorVisited = new List<Tuple<int, int>>();
             for (int i = 0; i < maze.getRows(); i++)
                 this.visited[i] = new int[maze.getCols()];
 
@@ -108,6 +110,7 @@ namespace PlayerGame
         }
         public void Visit(int rows, int cols)
         {
+            coorVisited.Add(Tuple.Create(rows, cols));
             this.visited[rows][cols]++;
         }
     }

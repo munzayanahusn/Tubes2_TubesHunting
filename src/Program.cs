@@ -54,11 +54,11 @@ namespace TubesHunting
             {
                 Console.WriteLine("=== Route ====");
                 b.setCurrentAction(mazeMap, game);
-                // Console.WriteLine();
-                // Console.WriteLine("Treasure found in " + b.getRoute().Count + " steps!");
+                Console.WriteLine();
+                Console.WriteLine("Treasure found in " + b.getRoute().Count + " steps!");
                 // Console.WriteLine("Nodes: " + b.getNodeVisitedCount());
-                // Console.Write("Route: ");
-                // b.printRoute();
+                Console.Write("Route: ");
+                b.printRoute();
             }
             Console.WriteLine();
         }
