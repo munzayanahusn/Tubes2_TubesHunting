@@ -3,6 +3,7 @@ using MazeMap;
 using Game;
 using PlayerGame;
 using DFSalgorithm;
+using BFSalgorithm;
 
 // dotnet run --project TubesHunting
 
@@ -41,8 +42,10 @@ namespace TubesHunting
                 mazeMap.setMapMatrix(mapTemp.getMapMatrix());
             }
             mazeMap.printMap(mazeMap.getMapMatrix());
-            DFS d = new DFS(mazeMap);
+            // DFS d = new DFS(mazeMap);
+            BFS b = new BFS(mazeMap);
             GameState game = new GameState(mazeMap.getMapMatrix());
+            Console.WriteLine(game.getTreasureCount());
             if (game.getTreasureCount() <= 0)
             {
                 Console.WriteLine("There's no treasure!");
@@ -50,12 +53,12 @@ namespace TubesHunting
             else
             {
                 Console.WriteLine("=== Route ====");
-                d.setCurrentAction(mazeMap, game);
-                Console.WriteLine();
-                Console.WriteLine("Treasure found in " + d.getRoute().Capacity + " steps!");
-                Console.WriteLine("Nodes: " + d.getNodeVisitedCount());
-                Console.Write("Route: ");
-                d.printRoute();
+                b.setCurrentAction(mazeMap, game);
+                // Console.WriteLine();
+                // Console.WriteLine("Treasure found in " + b.getRoute().Count + " steps!");
+                // Console.WriteLine("Nodes: " + b.getNodeVisitedCount());
+                // Console.Write("Route: ");
+                // b.printRoute();
             }
             Console.WriteLine();
         }

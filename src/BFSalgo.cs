@@ -12,30 +12,31 @@ namespace BFSalgorithm
 
         public override void setCurrentAction(Maze maze, GameState game)
         {
-            breadthFirstSearch(this.firstPos, maze, game, 0);
+            breadthFirstSearch(this.firstPos, maze, game);
         }
 
-        public void breadthFirstSearch(Position pos, Maze maze, GameState game, int treasureFound)
+        public void breadthFirstSearch(Position pos, Maze maze, GameState game)
         {
+            // Prioritas Belok : Kiri, Bawah, Kanan, Atas
             int[] dx = { 0, 1, 0, -1 };
             int[] dy = { -1, 0, 1, 0 };
+            bool[,] visitedState = new bool[maze.getRows(), maze.getCols()];
 
             int startX = pos.getX();
             int startY = pos.getY();
-            Visit(startX, startY);
-
 
             Queue<(int x, int y, int steps, List<char> route)> q = new Queue<(int, int, int, List<char>)>();
-            q.Enqueue((startX, startY, 0, new List<char>()));
+            q.Enqueue((startX, startY, 0, this.getRoute()));
 
             if (game.getTreasureCount() > 0)
             {
+                Visit(startX, startY);
                 while (q.Count > 0)
                 {
                     var current = q.Dequeue();
 
                     Position currentPos = new Position(current.x, current.y);
-                    setCurrentPosition(currentPos);
+                    this.setCurrentPosition(currentPos);
                     this.setRoute(current.route);
                     int steps = current.steps;
 
@@ -43,7 +44,14 @@ namespace BFSalgorithm
                     {
                         maze.setMapElement(GameState.ROAD, currentPos.getX(), currentPos.getY());
                         game.setTreasureCount(game.getTreasureCount() - 1);
-                        breadthFirstSearch(currentPos, maze, game, treasureFound + 1);
+                        if (game.getTreasureCount() == 0)
+                        {
+                            Console.WriteLine("Treasure found in " + this.getRoute().Count + " steps!");
+                            Console.WriteLine("Nodes: " + this.getNodeVisitedCount());
+                            Console.Write("Route: ");
+                            this.printRoute();
+                        }
+                        breadthFirstSearch(currentPos, maze, game);
                     }
 
                     for (int i = 0; i < 4; i++)
@@ -57,7 +65,7 @@ namespace BFSalgorithm
                         }
 
                         if (maze.getMapElement(newX, newY) == GameState.OBSTACLES
-                            || this.visited[newX][newY] == treasureFound + 1)
+                            || visitedState[newX, newY])
                         {
                             continue;
                         }
@@ -79,10 +87,12 @@ namespace BFSalgorithm
                                 break;
                         }
                         Visit(newX, newY);
+                        visitedState[newX, newY] = true;
                         q.Enqueue((newX, newY, steps + 1, newRoute));
                     }
                 }
             }
+            else return;
         }
     }
 }

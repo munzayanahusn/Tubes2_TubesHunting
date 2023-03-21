@@ -120,8 +120,7 @@ namespace PlayerGame
         }
         public void setRoute(List<char> Route)
         {
-            this.route.Clear();
-            this.route = Route;
+            this.route = new List<char>(Route);
             Position newPos = new Position(this.getCurrentPosition().getX() - 1, this.getCurrentPosition().getY());
         }
         public List<char> getRoute()
