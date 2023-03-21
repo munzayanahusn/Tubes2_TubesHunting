@@ -47,27 +47,7 @@ namespace PlayerGame
             for (int i = 0; i < maze.getRows(); i++)
                 this.visited[i] = new int[maze.getCols()];
 
-            for (int i = 0; i < maze.getRows(); i++)
-            {
-                for (int j = 0; j < maze.getCols(); j++)
-                {
-                    if (maze.getMapElement(i, j) == 'X')
-                    {
-                        this.visited[i][j] = -1;
-                    }
-                    else if (maze.getMapElement(i, j) == 'K')
-                    {
-                        this.firstPos.setX(i);
-                        this.firstPos.setY(j);
-                        this.setCurrentPosition(firstPos);
-                        this.visited[i][j] = 0;
-                    }
-                    else if (maze.getMapElement(i, j) == 'R')
-                    {
-                        this.visited[i][j] = 0;
-                    }
-                }
-            }
+            setInitVisitedMap(maze);
         }
         public void setCurrentPosition(Position pos)
         {
@@ -91,10 +71,44 @@ namespace PlayerGame
         {
             this.visited = visitedMap;
         }
-
         public int[][] getVisitedMap()
         {
             return this.visited;
+        }
+        public void setInitVisitedMap(Maze maze)
+        {
+            for (int i = 0; i < maze.getRows(); i++)
+            {
+                for (int j = 0; j < maze.getCols(); j++)
+                {
+                    if (maze.getMapElement(i, j) == 'X')
+                    {
+                        this.visited[i][j] = -1;
+                    }
+                    else if (maze.getMapElement(i, j) == 'K')
+                    {
+                        this.firstPos.setY(i);
+                        this.firstPos.setX(j);
+                        this.setCurrentPosition(firstPos);
+                        this.visited[i][j] = 0;
+                    }
+                    else
+                    {
+                        this.visited[i][j] = 0;
+                    }
+                }
+            }
+        }
+        public void printVisitedMap()
+        {
+            for (int i = 0; i < visited.Length; i++)
+            {
+                for (int j = 0; j < visited[0].Length; j++)
+                {
+                    Console.Write(visited[i][j] + " ");
+                }
+                Console.WriteLine();
+            }
         }
         public int getNodeVisitedCount()
         {
@@ -144,7 +158,7 @@ namespace PlayerGame
             Console.Write("-> U (" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY() + ")");
             this.route.Add('U');
             Position newPos = new Position(this.getCurrentPosition().getX(), this.getCurrentPosition().getY() - 1);
-            this.visited[newPos.getX()][newPos.getY()]++;
+            Visit(newPos.getY(), newPos.getX());
             setCurrentPosition(newPos);
         }
         public void goToDown()
@@ -152,7 +166,7 @@ namespace PlayerGame
             Console.Write("-> D (" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY() + ")");
             this.route.Add('D');
             Position newPos = new Position(this.getCurrentPosition().getX(), this.getCurrentPosition().getY() + 1);
-            this.visited[newPos.getX()][newPos.getY()]++;
+            Visit(newPos.getY(), newPos.getX());
             setCurrentPosition(newPos);
         }
         public void goToRight()
@@ -160,7 +174,7 @@ namespace PlayerGame
             Console.Write("-> R (" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY() + ")");
             this.route.Add('R');
             Position newPos = new Position(this.getCurrentPosition().getX() + 1, this.getCurrentPosition().getY());
-            this.visited[newPos.getX()][newPos.getY()]++;
+            Visit(newPos.getY(), newPos.getX());
             setCurrentPosition(newPos);
         }
         public void goToLeft()
@@ -168,7 +182,7 @@ namespace PlayerGame
             Console.Write("-> L (" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY() + ")");
             this.route.Add('L');
             Position newPos = new Position(this.getCurrentPosition().getX() - 1, this.getCurrentPosition().getY());
-            this.visited[newPos.getX()][newPos.getY()]++;
+            Visit(newPos.getY(), newPos.getX());
             setCurrentPosition(newPos);
         }
         public bool isAllAdjVisited()
@@ -178,22 +192,22 @@ namespace PlayerGame
         public bool isUpVisitable()
         {
             if (this.getCurrentPosition().getY() == 0) return false;
-            else return this.visited[this.getCurrentPosition().getX()][this.getCurrentPosition().getY() - 1] == 0;
+            else return this.visited[this.getCurrentPosition().getY() - 1][this.getCurrentPosition().getX()] == 0;
         }
         public bool isDownVisitable()
         {
             if (this.getCurrentPosition().getY() == this.getVisitedMap().Length - 1) return false;
-            else return this.visited[this.getCurrentPosition().getX()][this.getCurrentPosition().getY() + 1] == 0;
+            else return this.visited[this.getCurrentPosition().getY() + 1][this.getCurrentPosition().getX()] == 0;
         }
         public bool isLeftVisitable()
         {
             if (this.getCurrentPosition().getX() == 0) return false;
-            else return this.visited[this.getCurrentPosition().getX() - 1][this.getCurrentPosition().getY()] == 0;
+            else return this.visited[this.getCurrentPosition().getY()][this.getCurrentPosition().getX() - 1] == 0;
         }
         public bool isRightVisitable()
         {
             if (this.getCurrentPosition().getX() == this.getVisitedMap()[0].Length - 1) return false;
-            else return this.visited[this.getCurrentPosition().getX() + 1][this.getCurrentPosition().getY()] == 0;
+            else return this.visited[this.getCurrentPosition().getY()][this.getCurrentPosition().getX() + 1] == 0;
         }
         public abstract void setCurrentAction(Maze maze, GameState game); // Didefinisikan di kelas DFS BFS
     }

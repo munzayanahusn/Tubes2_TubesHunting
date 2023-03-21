@@ -62,14 +62,23 @@ namespace TubesHunting
                     DFS d = new DFS(mazeMap);
                     d.setCurrentAction(mazeMap, game);
                     Console.WriteLine("=== Route ====");
-                    Console.WriteLine();
-                    Console.WriteLine("Treasure found in " + d.getRoute().Count + " steps!");
-                    Console.WriteLine("Nodes: " + d.getNodeVisitedCount());
+                    d.setCurrentAction(mazeMap, game);
                     Console.Write("Route: ");
                     d.printRoute();
+                    Console.WriteLine();
+
+                    Console.WriteLine("=== Route ====");
+                    d.TSPSetupDFS(d.getCurrentPosition(), mazeMap, game);
+                    Console.WriteLine("First Pos (" + d.getFirstPosition().getX() + "," + d.getFirstPosition().getY() + ")");
+                    d.setCurrentAction(mazeMap, game);
+                    Console.WriteLine();
+                    Console.WriteLine("Treasure found in " + d.getRoute().Count + " steps!");
+                    //Console.WriteLine("Nodes: " + b.getNodeVisitedCount());
+                    Console.Write("Route: ");
+                    d.printRoute();
+                    Console.WriteLine();
                 }
             }
-            Console.WriteLine();
         }
     }
 }

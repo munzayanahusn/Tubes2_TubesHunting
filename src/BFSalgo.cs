@@ -41,9 +41,9 @@ namespace BFSalgorithm
                     this.setRoute(current.route);
                     nodes++;
 
-                    if (maze.getMapElement(currentPos.getX(), currentPos.getY()) == GameState.TREASURE_PLACE)
+                    if (maze.getMapElement(currentPos.getY(), currentPos.getX()) == GameState.TREASURE_PLACE)
                     {
-                        maze.setMapElement(GameState.ROAD, currentPos.getX(), currentPos.getY());
+                        maze.setMapElement(GameState.ROAD, currentPos.getY(), currentPos.getX());
                         game.setTreasureCount(game.getTreasureCount() - 1);
                         breadthFirstSearch(currentPos, maze, game, nodes);
                     }
