@@ -46,10 +46,10 @@ namespace DFSalgorithm
                 if (isAllAdjVisited()) backTrack();
                 else
                 {
-                    if (!isRightVisited()) goToRight();
-                    else if (!isDownVisited()) goToDown();
-                    else if (!isLeftVisited()) goToLeft();
-                    else if (!isUpVisited()) goToUp();
+                    if (!isRightVisited() && !inLeftBound()) goToRight();
+                    else if (!isRightVisited() && !inLeftBound()) goToDown();
+                    else if (!isRightVisited() && !inLeftBound()) goToLeft();
+                    else if (!isRightVisited() && !inLeftBound()) goToUp();
                 }
                 depthFirstSearch(this.getCurrentPosition(), maze, game);
             }

@@ -44,6 +44,8 @@ namespace TubesHunting
             DFS d = new DFS(mazeMap);
             GameState game = new GameState(mazeMap.getMapMatrix());
 
+            d.setCurrentAction(mazeMap, game);
+
             if (game.getTreasureCount() <= 0)
             {
                 Console.WriteLine("There's no treasure!");

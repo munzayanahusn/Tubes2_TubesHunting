@@ -186,6 +186,22 @@ namespace PlayerGame
         {
             return this.isUpVisited() && this.isDownVisited() && this.isRightVisited() && this.isLeftVisited();
         }
+        public bool inUpBound()
+        {
+            return this.getCurrentPosition().getY() == 0;
+        }
+        public bool inDownBound()
+        {
+            return this.getCurrentPosition().getY() == this.getVisitedMap().Length - 1;
+        }
+        public bool inLeftBound()
+        {
+            return this.getCurrentPosition().getX() == 0;
+        }
+        public bool inRightBound()
+        {
+            return this.getCurrentPosition().getX() == this.getVisitedMap()[0].Length - 1;
+        }
         public abstract void setCurrentAction(Maze maze, GameState game); // Didefinisikan di kelas DFS BFS
     }
 }
