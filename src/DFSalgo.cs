@@ -34,15 +34,18 @@ namespace DFSalgorithm
         }
         public void depthFirstSearch(Position pos, Maze maze, GameState game)
         {
-            Console.WriteLine("Treasure : " + game.getTreasureCount());
+            Console.WriteLine(" Treasure : " + game.getTreasureCount());
+            // printVisitedMap();
             if (game.getTreasureCount() > 0)
             {
-                Visit(pos.getX(), pos.getY());
+                Visit(pos.getY(), pos.getX());
 
-                if (maze.getMapElement(pos.getX(), pos.getY()) == GameState.TREASURE_PLACE)
+                if (maze.getMapElement(pos.getY(), pos.getX()) == GameState.TREASURE_PLACE)
                 {
+                    maze.setMapElement('R', pos.getY(), pos.getX());
+                    Console.WriteLine("This " + maze.getMapElement(pos.getY(), pos.getX()));
                     game.setTreasureCount(game.getTreasureCount() - 1);
-                    maze.setMapElement('R', pos.getX(), pos.getY());
+                    if (game.getTreasureCount() == 0) return;
                 }
                 // Prioritas Belok : Kiri, Bawah, Kanan, Atas
                 if (isAllAdjVisited())
@@ -52,7 +55,7 @@ namespace DFSalgorithm
                 }
                 else
                 {
-                    Console.Write(" | '" + maze.getMapElement(pos.getX(), pos.getY()) + "' | ");
+                    Console.Write(" | '" + maze.getMapElement(pos.getY(), pos.getX()) + "' | ");
                     if (isLeftVisitable()) goToLeft();
                     else if (isDownVisitable()) goToDown();
                     else if (isRightVisitable()) goToRight();
@@ -60,6 +63,18 @@ namespace DFSalgorithm
                 }
                 depthFirstSearch(this.getCurrentPosition(), maze, game);
             }
+        }
+        public void TSPSetupDFS(Position currentPos, Maze maze, GameState game)
+        {
+            maze.setMapElement('T', firstPos.getY(), firstPos.getX());
+            maze.setMapElement('K', currentPos.getY(), currentPos.getX());
+            game.setTreasureCount(1);
+            setInitVisitedMap(maze);
+            // Console.WriteLine("Visited Map");
+            // printVisitedMap();
+
+            maze.printMap(maze.getMapMatrix());
+            Console.WriteLine("(" + currentPos.getX() + "," + currentPos.getY() + ")");
         }
     }
 }
