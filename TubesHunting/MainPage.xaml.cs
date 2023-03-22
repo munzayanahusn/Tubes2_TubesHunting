@@ -1,5 +1,4 @@
 ﻿using System;
-using Android.Graphics;
 using DFSalgorithm;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Compatibility;
@@ -157,6 +156,7 @@ public partial class MainPage : ContentPage
             {
                 bfsMap.runTSPforBFS(bfsMap.getCurrentPosition(), mazeMap, game);
             }
+            TSPSwitch.IsEnabled = true;
             int[][] visitMatrix = bfsMap.getVisitedMap();
             Console.WriteLine(visitMatrix[0][0]);
             for (int i = 0; i < mazeMap.getRows(); i++)
@@ -178,7 +178,6 @@ public partial class MainPage : ContentPage
                     }
                 }
             }
-
             // ROUTE:
             Label label = new Label();
             label.HorizontalOptions = LayoutOptions.Start;
@@ -203,7 +202,7 @@ public partial class MainPage : ContentPage
             label1.TranslationX = 150;
             Grid.SetRow(label1, 1);
             childgridoutput2.Add(label1);
-            TSPSwitch.IsEnabled = true;
+            
         }
         else
         {
@@ -215,6 +214,7 @@ public partial class MainPage : ContentPage
                 dfsMap.TSPSetupDFS(dfsMap.getCurrentPosition(), mazeMap, game);
                 dfsMap.setCurrentAction(mazeMap, game);
             }
+            TSPSwitch.IsEnabled = true;
             int[][] visitMatrix = dfsMap.getVisitedMap();
             Console.WriteLine(visitMatrix[0][0]);
             for (int i = 0; i < mazeMap.getRows(); i++)
@@ -260,7 +260,6 @@ public partial class MainPage : ContentPage
             label1.TranslationX = 150;
             Grid.SetRow(label1, 1);
             childgridoutput2.Add(label1);
-            TSPSwitch.IsEnabled = true;
         }
     }
 
