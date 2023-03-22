@@ -69,11 +69,33 @@ namespace TubesHunting
                 var watch = Stopwatch.StartNew();
                 if (ans == "BFS" || ans == "bfs")
                 {
-                    // Lakukan penelusuran dengan Breadth-First-Search
+                    Console.Write("Lanjutkan hingga kembali ke titik awal : TSP (Y/N)? ");
+                    ans = Console.ReadLine();
+                    while (ans != "Y" && ans != "y" && ans != "N" && ans != "n")
+                    {
+                        Console.WriteLine("Masukan tidak valid. Silakan ulangi masukan");
+                        Console.Write("Lanjutkan hingga kembali ke titik awal : TSP (Y/N)? ");
+                        ans = Console.ReadLine();
+                    }
+
                     watch = Stopwatch.StartNew();
                     BFS b = new BFS(mazeMap);
                     b.setCurrentAction(mazeMap, game);
+                    if (ans == "Y" || ans == "y")
+                    {
+                        // Penelusuran kembali ke titik awal
+                        b.runTSPforBFS(b.getCurrentPosition(), mazeMap, game);
+                    }
                     watch.Stop();
+
+                    // Mencetak informasi penelusuran
+                    Console.WriteLine("Treasure found in " + b.getRoute().Count + " steps!");
+                    Console.Write("Route: ");
+                    b.printRoute();
+                    Console.WriteLine("Visited Node Route: ");
+                    b.printCoorVisited();
+                    b.setNodes(b.countNodes());
+                    Console.WriteLine("Node: " + b.getNodes());
                 }
                 else if (ans == "DFS" || ans == "dfs")
                 {
