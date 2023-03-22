@@ -78,7 +78,6 @@ namespace TubesHunting
                 else if (ans == "DFS" || ans == "dfs")
                 {
                     // Lakukan penelusuran dengan Breadth-First-Search
-
                     Console.Write("Lanjutkan hingga kembali ke titik awal : TSP (Y/N)? ");
                     ans = Console.ReadLine();
                     while (ans != "Y" && ans != "y" && ans != "N" && ans != "n")
