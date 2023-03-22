@@ -12,6 +12,18 @@
 		<data>
 		XeNJCWAjipe3f59TxQGWtSCBAQI=
 		</data>
+		<key>Resources/Images/addfile.png</key>
+		<data>
+		rs7mnmb6ENrdOSWld5PRx8UGhj8=
+		</data>
+		<key>Resources/Images/eye.png</key>
+		<data>
+		qO6lsI8WBcVt2z4Ut+AG1Fj4bJA=
+		</data>
+		<key>Resources/Images/inputfile.png</key>
+		<data>
+		rs7mnmb6ENrdOSWld5PRx8UGhj8=
+		</data>
 		<key>Resources/MauiInfo.plist</key>
 		<data>
 		iEtuUGCV6JM3gxS/pO33swhmpp8=
@@ -28,6 +40,10 @@
 		<data>
 		Go/BMxp0ylCUGfzbuKQ0zteazW4=
 		</data>
+		<key>Resources/addfile.png</key>
+		<data>
+		rs7mnmb6ENrdOSWld5PRx8UGhj8=
+		</data>
 		<key>Resources/appicon.icns</key>
 		<data>
 		L9cHAOVSlaW2jMaBgy7GlIBZdZg=
@@ -43,6 +59,14 @@
 		<key>Resources/dotnet_bot@3x.png</key>
 		<data>
 		AgG9OaBqGlLlSsDbnE/6b1bb0xU=
+		</data>
+		<key>Resources/eye.png</key>
+		<data>
+		qO6lsI8WBcVt2z4Ut+AG1Fj4bJA=
+		</data>
+		<key>Resources/inputfile.png</key>
+		<data>
+		rs7mnmb6ENrdOSWld5PRx8UGhj8=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -1325,14 +1349,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Hb4IDAbxey37OWWjb3risk2DhV1I6qBtSAi48VuIFis=
+			eMifBei1ULotApGLiIOM7Bv0GRL1YikmZqx4IuPB2Yo=
 			</data>
 		</dict>
 		<key>MonoBundle/TubesHunting.pdb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			dBGXik2ReTICOsvnqjFdGmZ4OY0H38+Sa5XYsGvvR8o=
+			5kvQrBA8Z7C6X93QFaxQ0MArMWSkLbOvgtir4RmeGWQ=
 			</data>
 		</dict>
 		<key>MonoBundle/WindowsBase.dll</key>
@@ -1426,6 +1450,27 @@
 			jxdtgqkMJEyuNwZZSFxELD/Kt3Zu2RhwpGEO2sOawo4=
 			</data>
 		</dict>
+		<key>Resources/Images/addfile.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			o7stwAJwijLTAckjzUQin8/d7iwDcY73gnBAo0Kg3GU=
+			</data>
+		</dict>
+		<key>Resources/Images/eye.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			woJwAlXupOvxk3xBG9xGfMJs7jCU7OVPTWDi4pR1MYM=
+			</data>
+		</dict>
+		<key>Resources/Images/inputfile.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			o7stwAJwijLTAckjzUQin8/d7iwDcY73gnBAo0Kg3GU=
+			</data>
+		</dict>
 		<key>Resources/MauiInfo.plist</key>
 		<dict>
 			<key>hash2</key>
@@ -1454,6 +1499,13 @@
 			SSg9S4gTjYiN9IvztYIMNE/V0QSrT77fBYhYYwcaWoo=
 			</data>
 		</dict>
+		<key>Resources/addfile.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			o7stwAJwijLTAckjzUQin8/d7iwDcY73gnBAo0Kg3GU=
+			</data>
+		</dict>
 		<key>Resources/appicon.icns</key>
 		<dict>
 			<key>hash2</key>
@@ -1480,6 +1532,20 @@
 			<key>hash2</key>
 			<data>
 			06Dw48r2qORp1zVQzu1FMEqEQpN18taU/bp0JACYc40=
+			</data>
+		</dict>
+		<key>Resources/eye.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			woJwAlXupOvxk3xBG9xGfMJs7jCU7OVPTWDi4pR1MYM=
+			</data>
+		</dict>
+		<key>Resources/inputfile.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			o7stwAJwijLTAckjzUQin8/d7iwDcY73gnBAo0Kg3GU=
 			</data>
 		</dict>
 	</dict>

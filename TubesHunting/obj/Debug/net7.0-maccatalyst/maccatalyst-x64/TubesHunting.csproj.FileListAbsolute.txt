@@ -257,3 +257,6 @@
 /Users/putinabillaaidira/Projects/TubesHunting/TubesHunting/obj/Debug/net7.0-maccatalyst/maccatalyst-x64/TubesHunting.pdb
 /Users/putinabillaaidira/Projects/TubesHunting/TubesHunting/obj/Debug/net7.0-maccatalyst/maccatalyst-x64/TubesHunting.genruntimeconfig.cache
 /Users/putinabillaaidira/Projects/TubesHunting/TubesHunting/obj/Debug/net7.0-maccatalyst/maccatalyst-x64/ref/TubesHunting.dll
+/Users/putinabillaaidira/Projects/TubesHunting/TubesHunting/obj/Debug/net7.0-maccatalyst/maccatalyst-x64/resizetizer/r/Resources/addfile.png
+/Users/putinabillaaidira/Projects/TubesHunting/TubesHunting/obj/Debug/net7.0-maccatalyst/maccatalyst-x64/resizetizer/r/Resources/inputfile.png
+/Users/putinabillaaidira/Projects/TubesHunting/TubesHunting/obj/Debug/net7.0-maccatalyst/maccatalyst-x64/resizetizer/r/Resources/eye.png
