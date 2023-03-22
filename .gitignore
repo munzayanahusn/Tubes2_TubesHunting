@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # globs
 Makefile.in
 *.userprefs
@@ -394,7 +393,7 @@ OpenCover/
 ASALocalRun/
 
 # MSBuild Binary and Structured Log
-*.binlog
+#*.binlog
 
 # NVidia Nsight GPU debugger configuration file
 *.nvuser
@@ -406,4 +405,3 @@ ASALocalRun/
 .localhistory/
 =======
 .vscode/
->>>>>>> 5f5979d834862b5761dcafcaa84527f4d87e8e64
