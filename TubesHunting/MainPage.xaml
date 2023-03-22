@@ -26,7 +26,7 @@
             Grid.Row="0"
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            Color="#070707" />
+            Color="Black" />
         <Label Text="Treasure &#10;Hunt &#10;Solver!"
             FontFamily="Helvetica"
             FontSize="80"
@@ -37,6 +37,33 @@
             TranslationX="150"
             VerticalOptions="End"
             TextColor="White"/>
+
+        <!--row 1 col 1 2-->
+        <Grid x:Name="childgridoutput1"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <BoxView
+                Grid.Row="0"
+                HorizontalOptions="End"
+                VerticalOptions="Center"
+                Color="White" />
+        </Grid>
+
+        <!--row 2 col 0-->
+        <Grid x:Name="childgridfile"
+            Grid.Column="0"
+            Grid.Row="2">
+            <Label
+                Text="INPUT FILE"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                TextColor="White" />
+        </Grid>
 
         <!--row 3 col 0 -->
         <BoxView Grid.Column="0"
@@ -51,14 +78,6 @@
             WidthRequest="48"
             HeightRequest="48"/>
 
-        <!--row 2 col 0-->
-        <Label Grid.Column="0"
-            Grid.Row="2"
-            Text="INPUT FILE"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            TextColor="White" />
-
         <!--row 3 col 1-->
         <BoxView Grid.Column="1"
             Grid.Row="3"
@@ -67,7 +86,7 @@
             IsToggled="False"
             Grid.Column="1"
             Grid.Row="3"
-            OnColor="#070707"
+            OnColor="Black"
             ThumbColor="White"
             VerticalOptions="Center"
             HorizontalOptions="Center"
@@ -89,7 +108,7 @@
             IsToggled="False"
             Grid.Column="2"
             Grid.Row="3"
-            OnColor="#070707"
+            OnColor="Black"
             ThumbColor="White"
             VerticalOptions="Center"
             HorizontalOptions="Center"

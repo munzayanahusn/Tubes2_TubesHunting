@@ -34,16 +34,15 @@ public partial class MainPage : ContentPage
     public void setMaze()
     {
         if (!FileValid) return;
-        Grid rootgrid = (Grid)FindByName("rootgrid");
         childgrid.Clear();
         double height = (rootgrid.Height * 0.17) / mazeMap.getCols();
         double traslation = rootgrid.Height / 8;
         for (int i = 0; i < mazeMap.getRows(); i++)
         {
-            childgrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(height) });
+            childgrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(height) });
             for (int j = 0; j < mazeMap.getCols(); j++)
             {
-                childgrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(height) });
+                childgrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(height) });
                 if (mazeMap.getMapElement(i, j) == 'X')
                 {
                     BoxView boxView2 = new BoxView { Color = Colors.Gray };
@@ -83,14 +82,17 @@ public partial class MainPage : ContentPage
 
     public async void FilePickerButton_Clicked(System.Object sender, System.EventArgs e)
     {
-        Grid rootgrid = (Grid)FindByName("rootgrid");
+        Grid childgridfile = (Grid)FindByName("childgridfile");
+        childgridfile.Clear();
+        ActivityIndicator activityIndicator = new ActivityIndicator
+        {
+            IsRunning = true,
+            Color = Colors.White
+        };
         Label label = new Label();
-        Grid.SetRow(label, 0);
-        Grid.SetColumn(label, 0);
         label.HorizontalOptions = LayoutOptions.Center;
         label.VerticalOptions = LayoutOptions.Center;
-        label.TranslationY = -10;
-        rootgrid.Add(label);
+        childgridfile.Add(activityIndicator);
         try {
             var result = await FilePicker.Default.PickAsync(new PickOptions());
             if (result != null)
@@ -99,6 +101,7 @@ public partial class MainPage : ContentPage
                 {
                     FileValid = true;
                     using var stream = await result.OpenReadAsync();
+                    activityIndicator.IsRunning = false;
                     //Console.WriteLine(result.FullPath);
                     mazeMap.setCols(result.FullPath);
                     mazeMap.setRows(result.FullPath);
@@ -108,6 +111,7 @@ public partial class MainPage : ContentPage
                     label.Text = result.FileName;
                     label.TextColor = Colors.White;
                     label.BackgroundColor = Colors.Black;
+                    childgridfile.Add(label);
                 }
                 else throw new MazeMap.MazeException();
             }
@@ -119,6 +123,7 @@ public partial class MainPage : ContentPage
             label.Text = ex.msg();
             label.TextColor = Colors.Red;
             label.BackgroundColor = Colors.Black;
+            childgridfile.Add(label);
             return;
         }
     }
@@ -136,15 +141,77 @@ public partial class MainPage : ContentPage
 
     public async void SearchButton_Clicked(System.Object sender, System.EventArgs e)
     {
+        TSPSwitch.IsEnabled = false;
         if (!FileValid) return;
         if (!Algo) //BFS
         {
+            BFSalgorithm.BFS bfsMap = new BFSalgorithm.BFS(mazeMap);
+            Game.GameState game = new Game.GameState(mazeMap.getMapMatrix());
+            bfsMap.setCurrentAction(mazeMap, game);
+            if (TSP)
+            {
+                bfsMap.runTSPforBFS(bfsMap.getCurrentPosition(), mazeMap, game);
+            }
+            int[][] visitMatrix = bfsMap.getVisitedMap();
+            Console.WriteLine(visitMatrix[0][0]);
+            for (int i = 0; i < mazeMap.getRows(); i++)
+            {
+                for (int j = 0; j < mazeMap.getCols(); j++)
+                {
+                    Console.WriteLine(visitMatrix[i][j]);
+                    if (visitMatrix[i][j] == 0)
+                    {
+                        BoxView boxView2 = new BoxView { Color = Colors.Yellow };
+                        Grid.SetRow(boxView2, i);
+                        Grid.SetColumn(boxView2, j);
+                        childgrid.Add(boxView2);
+                        await Task.Delay(TimeInterval * 1000);
+                        boxView2.Color = Colors.Blue;
+                        Grid.SetRow(boxView2, i);
+                        Grid.SetColumn(boxView2, j);
+                        childgrid.Add(boxView2);
+                    }
+                }
+            }
+            Grid childgridoutput1 = (Grid)FindByName("childgridoutput1");
+            Grid childgridoutput2 = (Grid)FindByName("childgridoutput2");
 
+            // ROUTE:
+            Label label = new Label();
+            label.HorizontalOptions = LayoutOptions.Start;
+            label.VerticalOptions = LayoutOptions.Center;
+            label.FontSize = 20;
+            label.FontFamily = "Helvetica";
+            Console.WriteLine(bfsMap.toStringRoute());
+            label.Text = "ROUTE:  " + bfsMap.toStringRoute();
+            label.TranslationX = 150;
+            Grid.SetRow(label, 0);
+            childgridoutput1.Add(label);
+            bfsMap.setNodes(bfsMap.countNodes());
+
+            // NODES:
+            Label label1 = new Label();
+            label1.HorizontalOptions = LayoutOptions.Start;
+            label1.VerticalOptions = LayoutOptions.Center;
+            label1.FontSize = 20;
+            label1.FontFamily = "Helvetica";
+            Console.WriteLine(bfsMap.toStringRoute());
+            label1.Text = "NODES VISITED:  " + bfsMap.getNodes();
+            label1.TranslationX = 150;
+            Grid.SetRow(label1, 1);
+            childgridoutput2.Add(label1);
+            TSPSwitch.IsEnabled = true;
         }
         else
         {
-            DFS dfsMap = new DFS(mazeMap);
+            DFSalgorithm.DFS dfsMap = new DFSalgorithm.DFS(mazeMap);
             Game.GameState game = new Game.GameState(mazeMap.getMapMatrix());
+            dfsMap.setCurrentAction(mazeMap, game);
+            if (TSP)
+            {
+                dfsMap.TSPSetupDFS(dfsMap.getCurrentPosition(), mazeMap, game);
+                dfsMap.setCurrentAction(mazeMap, game);
+            }
             int[][] visitMatrix = dfsMap.getVisitedMap();
             Console.WriteLine(visitMatrix[0][0]);
             for (int i = 0; i < mazeMap.getRows(); i++)
@@ -166,6 +233,15 @@ public partial class MainPage : ContentPage
                     }
                 }
             }
+            Grid childgridoutput1 = (Grid)FindByName("childgridoutput1");
+            Label label = new Label();
+            label.HorizontalOptions = LayoutOptions.Start;
+            label.VerticalOptions = LayoutOptions.Center;
+            Console.WriteLine(dfsMap.toStringRoute());
+            label.Text = "ROUTES:" + dfsMap.toStringRoute();
+            Grid.SetRow(label, 0);
+            childgridoutput1.Add(label);
+            TSPSwitch.IsEnabled = true;
         }
     }
 
