@@ -34,6 +34,7 @@ namespace DFSalgorithm
         // Pemilihan aksi perpindahan/pergerakan setiap waktu dengan algoritma Depth-First-Search
         public override void setCurrentAction(Maze maze, GameState game)
         {
+            Visit(getFirstPosition().getY(), getFirstPosition().getX());
             depthFirstSearch(this.firstPos, maze, game);
         }
         // Implementasi algoritma depth-first-search
@@ -41,7 +42,6 @@ namespace DFSalgorithm
         {
             if (game.getTreasureCount() > 0)
             {
-                Visit(pos.getY(), pos.getX());
                 if (maze.getMapElement(pos.getY(), pos.getX()) == GameState.TREASURE_PLACE)
                 {
                     // Ditemukan Treasure

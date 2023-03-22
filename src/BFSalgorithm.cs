@@ -16,6 +16,7 @@ namespace BFSalgorithm
         // Pemilihan aksi perpindahan/pergerakan setiap waktu dengan algoritma Breadth-First-Search
         public override void setCurrentAction(Maze maze, GameState game)
         {
+            Visit(getFirstPosition().getY(), getFirstPosition().getX());
             breadthFirstSearch(this.firstPos, maze, game);
         }
         // Implementasi algoritma breadth-first-search
@@ -32,11 +33,6 @@ namespace BFSalgorithm
             Queue<(int x, int y, List<char> route)> q = new Queue<(int, int, List<char>)>();
             q.Enqueue((startX, startY, this.getRoute()));
             onQueue[startY, startX] = true;
-
-            if (startX == getFirstPosition().getX() && startY == getFirstPosition().getY())
-            {
-                Visit(startY, startX);
-            }
 
             while (q.Count > 0)
             {
