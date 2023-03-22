@@ -55,4 +55,12 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Remove="Resources\Images\icons8-add-file-96.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="Resources\Images\eye.png" />
+	  <BundleResource Include="Resources\Images\inputfile.png" />
+	  <BundleResource Include="Resources\Images\icons8-add-file-96.png" />
+	</ItemGroup>
 </Project>

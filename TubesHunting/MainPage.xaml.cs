@@ -15,6 +15,7 @@ public partial class MainPage : ContentPage
     private Grid childgrid;
     private Boolean TSP; // TSP active = 1, TSP inactive = 0
     private int TimeInterval;
+    private Boolean FileValid;
 
     public MainPage()
     {
@@ -28,19 +29,24 @@ public partial class MainPage : ContentPage
         };
         TSP = false; //Default:TSP inactive
         TimeInterval = 0;
+        FileValid = false;
     }
     public void setMaze()
     {
+        if (!FileValid) return;
         Grid rootgrid = (Grid)FindByName("rootgrid");
+        childgrid.Clear();
+        double height = (rootgrid.Height * 0.17) / mazeMap.getCols();
+        double traslation = rootgrid.Height / 8;
         for (int i = 0; i < mazeMap.getRows(); i++)
         {
-            childgrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(40) });
+            childgrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(height) });
             for (int j = 0; j < mazeMap.getCols(); j++)
             {
-                childgrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(40) });
+                childgrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(height) });
                 if (mazeMap.getMapElement(i, j) == 'X')
                 {
-                    BoxView boxView2 = new BoxView { Color = Colors.Black };
+                    BoxView boxView2 = new BoxView { Color = Colors.Gray };
                     Grid.SetRow(boxView2, i);
                     Grid.SetColumn(boxView2, j);
                     childgrid.Add(boxView2);
@@ -67,38 +73,59 @@ public partial class MainPage : ContentPage
                 }
             }
         }
-        Grid.SetRow(childgrid, 2);
-        Grid.SetColumn(childgrid, 3);
+        Grid.SetRow(childgrid, 0);
+        Grid.SetRowSpan(childgrid, 2);
+        Grid.SetColumn(childgrid, 4);
+        Grid.SetColumnSpan(childgrid, 2);
+        childgrid.Margin = new Thickness(180);
         rootgrid.Add(childgrid);
-        this.Content = rootgrid;
     }
 
     public async void FilePickerButton_Clicked(System.Object sender, System.EventArgs e)
     {
+        Grid rootgrid = (Grid)FindByName("rootgrid");
+        Label label = new Label();
+        Grid.SetRow(label, 0);
+        Grid.SetColumn(label, 0);
+        label.HorizontalOptions = LayoutOptions.Center;
+        label.VerticalOptions = LayoutOptions.Center;
+        label.TranslationY = -10;
+        rootgrid.Add(label);
         try {
             var result = await FilePicker.Default.PickAsync(new PickOptions());
             if (result != null)
             {
-                //if (result.FileName.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
-                //{
-                using var stream = await result.OpenReadAsync();
-                //Console.WriteLine(result.FullPath);
-                mazeMap.setCols(result.FullPath);
-                mazeMap.setRows(result.FullPath);
-                MazeMap.Maze mapTemp = new MazeMap.Maze(result.FullPath, mazeMap.getRows(), mazeMap.getCols());
-                mazeMap.setMapMatrix(mapTemp.getMapMatrix());
-                //}
+                if (result.FileName.EndsWith("txt", StringComparison.OrdinalIgnoreCase))
+                {
+                    FileValid = true;
+                    using var stream = await result.OpenReadAsync();
+                    //Console.WriteLine(result.FullPath);
+                    mazeMap.setCols(result.FullPath);
+                    mazeMap.setRows(result.FullPath);
+                    MazeMap.Maze mapTemp = new MazeMap.Maze(result.FullPath, mazeMap.getRows(), mazeMap.getCols());
+                    mapTemp.validation();
+                    mazeMap.setMapMatrix(mapTemp.getMapMatrix());
+                    label.Text = result.FileName;
+                    label.TextColor = Colors.White;
+                    label.BackgroundColor = Colors.Black;
+                }
+                else throw new MazeMap.MazeException();
             }
 
         }
-        catch (Exception ex)
+        catch (MazeMap.MazeException ex)
         {
+            FileValid = false;
+            label.Text = ex.msg();
+            label.TextColor = Colors.Red;
+            label.BackgroundColor = Colors.Black;
             return;
         }
     }
 
     public void VisualizeButton_Clicked(System.Object sender, System.EventArgs e)
     {
+        if (!FileValid) return;
         setMaze();
     }
 
@@ -109,6 +136,7 @@ public partial class MainPage : ContentPage
 
     public async void SearchButton_Clicked(System.Object sender, System.EventArgs e)
     {
+        if (!FileValid) return;
         if (!Algo) //BFS
         {
 
