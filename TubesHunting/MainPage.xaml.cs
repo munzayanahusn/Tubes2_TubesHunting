@@ -16,6 +16,7 @@ public partial class MainPage : ContentPage
     private Boolean TSP; // TSP active = 1, TSP inactive = 0
     private int TimeInterval;
     private Boolean FileValid;
+    private double BoxSize;
 
     public MainPage()
     {
@@ -30,20 +31,20 @@ public partial class MainPage : ContentPage
         TSP = false; //Default:TSP inactive
         TimeInterval = 0;
         FileValid = false;
+        BoxSize = 40;
     }
     public void setMaze()
     {
         Grid rootgrid = (Grid)FindByName("rootgrid");
         if (!FileValid) return;
         childgrid.Clear();
-        double height = (rootgrid.Height * 0.17) / mazeMap.getCols();
         double traslation = rootgrid.Height / 8;
         for (int i = 0; i < mazeMap.getRows(); i++)
         {
-            childgrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(height) });
+            childgrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(BoxSize) });
             for (int j = 0; j < mazeMap.getCols(); j++)
             {
-                childgrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(height) });
+                childgrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(BoxSize) });
                 if (mazeMap.getMapElement(i, j) == 'X')
                 {
                     BoxView boxView2 = new BoxView { Color = Colors.Gray };
@@ -273,5 +274,12 @@ public partial class MainPage : ContentPage
         TimeInterval = (int) e.NewValue;
         Console.Write("ti:");
         Console.WriteLine(TimeInterval);
+    }
+
+    void SizeSlider_ValueChanged(System.Object sender, Microsoft.Maui.Controls.ValueChangedEventArgs e)
+    {
+        BoxSize = e.NewValue;
+        Console.Write("ni:");
+        Console.WriteLine(BoxSize);
     }
 }

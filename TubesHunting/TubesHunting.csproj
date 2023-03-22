@@ -50,6 +50,17 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.14" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Remove="Resources\Images\inputfile.png" />
+	  <None Remove="Resources\Images\eye.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="Resources\Images\inputfile.png" />
+	  <BundleResource Include="Resources\Images\inputfile.png" />
+	  <BundleResource Include="Resources\Images\eye.png" />
+	  <BundleResource Include="Resources\Images\eye.png" />
+	</ItemGroup>
 </Project>

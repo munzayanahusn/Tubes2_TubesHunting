@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TubesHunting.MainPage">
     <Grid x:Name="rootgrid">
-
        <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition />
@@ -16,10 +15,16 @@
             <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="0.4*"/>
             <ColumnDefinition Width="0.4*"/>
-            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition Width="0.8*"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
+
+        <BoxView
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="6"
+            Color="#222423" />
         <!--row 0 col 0 1 2 -->
         <BoxView
             Grid.Row="0"
@@ -57,6 +62,9 @@
         <Grid x:Name="childgridfile"
             Grid.Column="0"
             Grid.Row="2">
+            <BoxView Grid.Column="0"
+                Grid.Row="2"
+                Color="#222423" />
             <Label
                 Text="INPUT FILE"
                 HorizontalOptions="Center"
@@ -121,23 +129,40 @@
             VerticalOptions="Center"
             TextColor="White" />
 
-        <!--row 3 col 3 4 -->
+        <!--row 3 col 3-->
         <BoxView Grid.Column="3"
-            Grid.ColumnSpan="2"
             Grid.Row="3"
             Color="#222423" />
         <Slider x:Name="TimeSlider"
             Minimum="0" Maximum="3"
             Grid.Row="3"
-            Grid.Column="3"
-            Grid.ColumnSpan="2"
+            Grid.Column="3" 
             WidthRequest="200"
             BackgroundColor="#222423"
             ValueChanged="TimeSlider_ValueChanged"/>
 
-        <!--row 2 col 3 4-->
+        <!--row 2 col 4-->
+        <Label Grid.Column="4"
+            Grid.Row="2"
+            Text="MAZE'S BLOCK SIZE   ( 0  -  100px )"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            TextColor="White" />
+
+        <!--row 3 col 4 -->
+        <BoxView Grid.Column="4"
+            Grid.Row="3"
+            Color="#E2AD5F" />
+        <Slider x:Name="SizeSlider"
+            Minimum="0" Maximum="100"
+            Grid.Row="3"
+            Grid.Column="4"
+            WidthRequest="300"
+            BackgroundColor="#E2AD5F"
+            ValueChanged="SizeSlider_ValueChanged"/>
+
+        <!--row 2 col 3-->
         <Label Grid.Column="3"
-            Grid.ColumnSpan="2"
             Grid.Row="2"
             Text="STEP TIME INTERVAL   ( 0  -  3s )"
             HorizontalOptions="Center"
