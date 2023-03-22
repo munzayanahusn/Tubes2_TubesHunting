@@ -34,7 +34,8 @@ namespace DFSalgorithm
         // Pemilihan aksi perpindahan/pergerakan setiap waktu dengan algoritma Depth-First-Search
         public override void setCurrentAction(Maze maze, GameState game)
         {
-            Visit(getFirstPosition().getY(), getFirstPosition().getX());
+            this.coorVisited.Add(Tuple.Create(getFirstPosition().getY(), getFirstPosition().getX()));
+            // Visit(getFirstPosition().getY(), getFirstPosition().getY());
             depthFirstSearch(this.firstPos, maze, game);
         }
         // Implementasi algoritma depth-first-search
