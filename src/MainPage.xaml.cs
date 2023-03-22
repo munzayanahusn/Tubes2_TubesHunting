@@ -1,5 +1,4 @@
 ﻿using System;
-using Android.Graphics;
 using DFSalgorithm;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Compatibility;
@@ -52,7 +51,8 @@ public partial class MainPage : ContentPage
                     Grid.SetColumn(boxView2, j);
                     childgrid.Add(boxView2);
                 }
-                else if(mazeMap.getMapElement(i, j) == 'T') {
+                else if (mazeMap.getMapElement(i, j) == 'T')
+                {
                     Label label = new Label { Text = "Treasure", TextColor = Colors.Black, BackgroundColor = Colors.White };
                     Grid.SetRow(label, i);
                     Grid.SetColumn(label, j);
@@ -60,7 +60,7 @@ public partial class MainPage : ContentPage
                 }
                 else if (mazeMap.getMapElement(i, j) == 'K')
                 {
-                    Label label = new Label { Text = "Start", TextColor = Colors.Black, BackgroundColor = Colors.White};
+                    Label label = new Label { Text = "Start", TextColor = Colors.Black, BackgroundColor = Colors.White };
                     Grid.SetRow(label, i);
                     Grid.SetColumn(label, j);
                     childgrid.Add(label);
@@ -95,7 +95,8 @@ public partial class MainPage : ContentPage
         label.HorizontalOptions = LayoutOptions.Center;
         label.VerticalOptions = LayoutOptions.Center;
         childgridfile.Add(activityIndicator);
-        try {
+        try
+        {
             var result = await FilePicker.Default.PickAsync(new PickOptions());
             if (result != null)
             {
@@ -157,6 +158,7 @@ public partial class MainPage : ContentPage
             {
                 bfsMap.runTSPforBFS(bfsMap.getCurrentPosition(), mazeMap, game);
             }
+            TSPSwitch.IsEnabled = true;
             int[][] visitMatrix = bfsMap.getVisitedMap();
             Console.WriteLine(visitMatrix[0][0]);
             for (int i = 0; i < mazeMap.getRows(); i++)
@@ -178,7 +180,6 @@ public partial class MainPage : ContentPage
                     }
                 }
             }
-
             // ROUTE:
             Label label = new Label();
             label.HorizontalOptions = LayoutOptions.Start;
@@ -203,7 +204,7 @@ public partial class MainPage : ContentPage
             label1.TranslationX = 150;
             Grid.SetRow(label1, 1);
             childgridoutput2.Add(label1);
-            TSPSwitch.IsEnabled = true;
+
         }
         else
         {
@@ -215,6 +216,7 @@ public partial class MainPage : ContentPage
                 dfsMap.TSPSetupDFS(dfsMap.getCurrentPosition(), mazeMap, game);
                 dfsMap.setCurrentAction(mazeMap, game);
             }
+            TSPSwitch.IsEnabled = true;
             int[][] visitMatrix = dfsMap.getVisitedMap();
             Console.WriteLine(visitMatrix[0][0]);
             for (int i = 0; i < mazeMap.getRows(); i++)
@@ -228,7 +230,7 @@ public partial class MainPage : ContentPage
                         Grid.SetRow(boxView2, i);
                         Grid.SetColumn(boxView2, j);
                         childgrid.Add(boxView2);
-                        await Task.Delay(TimeInterval*1000);
+                        await Task.Delay(TimeInterval * 1000);
                         boxView2.Color = Colors.Blue;
                         Grid.SetRow(boxView2, i);
                         Grid.SetColumn(boxView2, j);
@@ -260,7 +262,6 @@ public partial class MainPage : ContentPage
             label1.TranslationX = 150;
             Grid.SetRow(label1, 1);
             childgridoutput2.Add(label1);
-            TSPSwitch.IsEnabled = true;
         }
     }
 
@@ -271,7 +272,7 @@ public partial class MainPage : ContentPage
 
     public void TimeSlider_ValueChanged(System.Object sender, Microsoft.Maui.Controls.ValueChangedEventArgs e)
     {
-        TimeInterval = (int) e.NewValue;
+        TimeInterval = (int)e.NewValue;
         Console.Write("ti:");
         Console.WriteLine(TimeInterval);
     }
