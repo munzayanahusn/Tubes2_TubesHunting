@@ -1,4 +1,3 @@
-/* 
 using System;
 using MazeMap;
 using Game;
@@ -136,4 +135,3 @@ namespace TubesHunting
         }
     }
 }
-*/
