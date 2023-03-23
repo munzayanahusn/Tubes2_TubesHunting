@@ -82,6 +82,7 @@ namespace DFSalgorithm
         public override void setCurrentAction(Maze maze, GameState game)
         {
             depthFirstSearch(this.firstPos, maze, game);
+            this.setCoorRoute(coorVisited);
         }
         // Implementasi algoritma depth-first-search
         public void depthFirstSearch(Position pos, Maze maze, GameState game)
