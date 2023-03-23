@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Metrics;
 
 namespace MazeMap
 {
@@ -10,6 +11,8 @@ namespace MazeMap
         public char[][] mapMatrix = { };
         private int rows;
         private int cols;
+        private int countK;
+        private int countT;
 
         /* Attributes */
         // Default constructor
@@ -44,6 +47,13 @@ namespace MazeMap
                     {
                         if (huruf != ' ')
                         {
+                            // Console.WriteLine("this [" + i + ", " + j + "] = " + huruf);
+                            Console.WriteLine(huruf);
+                            if (huruf == 'K') countK += 1;
+                            else if (huruf == 'T') countT += 1;
+                            else if (huruf != 'R' && huruf != 'X') throw new MazeException();
+                            Console.WriteLine(countK);
+                            Console.WriteLine(countT);
                             this.mapMatrix[i][j] = huruf;
                             j++;
                         }
@@ -118,5 +128,18 @@ namespace MazeMap
                 Console.WriteLine();
             }
         }
+        public void validation()
+        {
+            Console.WriteLine(countK);
+            Console.WriteLine(countT);
+            //if (this.cols != this.rows) throw new MazeException();
+            if (this.countK != 1) throw new MazeException();
+            else if (this.countT == 0) throw new MazeException();
+        }
     }
+    public class MazeException : Exception
+    {
+        public string msg() { return "Error!"; }
+    }
+
 }

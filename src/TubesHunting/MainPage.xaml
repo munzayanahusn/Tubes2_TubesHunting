@@ -42,7 +42,7 @@
             VerticalOptions="End"
             TextColor="White"/>
 
-        <!--row 1 col 1 2-->
+        <!--row 1 col 0 1 2-->
         <Grid x:Name="childgridoutput1"
             Grid.Column="0"
             Grid.ColumnSpan="3"
@@ -56,6 +56,21 @@
                 HorizontalOptions="End"
                 VerticalOptions="Center"
                 Color="White" />
+        </Grid>
+
+        <!--row 1 col 3-->
+        <Grid x:Name="childgridoutput2"
+            Grid.Column="3"
+            Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <BoxView
+                Grid.Row="0"
+                HorizontalOptions="End"
+                VerticalOptions="Center"
+                Color="#5447DD" />
         </Grid>
 
         <!--row 2 col 0-->
@@ -144,7 +159,7 @@
         <!--row 2 col 4-->
         <Label Grid.Column="4"
             Grid.Row="2"
-            Text="MAZE'S BLOCK SIZE   ( 0  -  100px )"
+            Text="MAZE POSITION"
             HorizontalOptions="Center"
             VerticalOptions="Center"
             TextColor="White" />
@@ -154,7 +169,7 @@
             Grid.Row="3"
             Color="#E2AD5F" />
         <Slider x:Name="SizeSlider"
-            Minimum="0" Maximum="100"
+            Minimum="0" Maximum="800"
             Grid.Row="3"
             Grid.Column="4"
             WidthRequest="300"
@@ -194,7 +209,7 @@
         <Button x:Name="SearchButton"
             Grid.Row="4"
             Grid.ColumnSpan="6"
-            Text="Search"
+            Text="SEARCH"
             BackgroundColor="#91BB95"
             TextColor="White"
             Clicked="SearchButton_Clicked"/>

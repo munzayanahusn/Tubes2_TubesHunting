@@ -200,6 +200,21 @@ namespace ExplorerState
                 else Console.WriteLine();
             }
         }
+        public string toStringRoute()
+        {
+            int i;
+            string s = "";
+            Console.Write("rc:");
+            Console.WriteLine(this.route.Capacity);
+            for (i = 0; i < this.route.Capacity; i++)
+            {
+                Console.Write("s:");
+                Console.WriteLine(s);
+                s = s + (route[i]);
+                if (i < this.route.Capacity - 1) s = s + "  ->  ";
+            }
+            return s;
+        }
         // Implementasi pergerakan dalam penelusuran
         public void goToUp()
         {
