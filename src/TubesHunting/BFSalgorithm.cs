@@ -16,6 +16,7 @@ namespace BFSalgorithm
         // Pemilihan aksi perpindahan/pergerakan setiap waktu dengan algoritma Breadth-First-Search
         public override void setCurrentAction(Maze maze, GameState game)
         {
+            this.addCoorRoute(getFirstPosition().getY(), getFirstPosition().getX());
             Visit(getFirstPosition().getY(), getFirstPosition().getX());
             breadthFirstSearch(this.firstPos, maze, game);
         }
@@ -30,8 +31,8 @@ namespace BFSalgorithm
             int startX = pos.getX();
             int startY = pos.getY();
 
-            Queue<(int x, int y, List<char> route)> q = new Queue<(int, int, List<char>)>();
-            q.Enqueue((startX, startY, this.getRoute()));
+            Queue<(int x, int y, List<char> route, List<Tuple<int, int>> coorRoute)> q = new Queue<(int, int, List<char>, List<Tuple<int, int>>)>();
+            q.Enqueue((startX, startY, this.getRoute(), this.getCoorRoute()));
             onQueue[startY, startX] = true;
 
             while (q.Count > 0)
@@ -41,6 +42,7 @@ namespace BFSalgorithm
                 Position currentPos = new Position(current.x, current.y);
                 this.setCurrentPosition(currentPos);
                 this.setRoute(current.route);
+                this.setCoorRoute(current.coorRoute);
 
                 if (current.y != startY || current.x != startX)
                 {
@@ -71,6 +73,7 @@ namespace BFSalgorithm
                     }
 
                     List<char> newRoute = new List<char>(current.route);
+                    List<Tuple<int, int>> newCoorRoute = new List<Tuple<int, int>>(current.coorRoute);
                     switch (i)
                     {
                         case 0:
@@ -86,8 +89,9 @@ namespace BFSalgorithm
                             newRoute.Add('U');
                             break;
                     }
+                    newCoorRoute.Add(Tuple.Create(newY, newX));
                     onQueue[newY, newX] = true;
-                    q.Enqueue((newX, newY, newRoute));
+                    q.Enqueue((newX, newY, newRoute, newCoorRoute));
                 }
             }
             if (game.getTreasureCount() > 0)

@@ -157,6 +157,7 @@ namespace ExplorerState
     {
         /* Attributes */
         protected List<char> route;
+        protected List<Tuple<int, int>> coorRoute;
         protected int nodes;
 
         /* Method */
@@ -164,17 +165,38 @@ namespace ExplorerState
         public ExplorerAction(Maze maze) : base(maze)
         {
             this.route = new List<char>();
+            this.coorRoute = new List<Tuple<int, int>>();
             nodes = 0;
         }
         // Getter dan Setter
         public void setRoute(List<char> Route)
         {
             this.route = new List<char>(Route);
-            Position newPos = new Position(this.getCurrentPosition().getX() - 1, this.getCurrentPosition().getY());
+            // Position newPos = new Position(this.getCurrentPosition().getX() - 1, this.getCurrentPosition().getY());
         }
         public List<char> getRoute()
         {
             return this.route;
+        }
+        public void setCoorRoute(List<Tuple<int, int>> coorRoute)
+        {
+            this.coorRoute = new List<Tuple<int, int>>(coorRoute);
+        }
+        public List<Tuple<int, int>> getCoorRoute()
+        {
+            return this.coorRoute;
+        }
+        public void addCoorRoute(int num1, int num2)
+        {
+            this.coorRoute.Add(Tuple.Create(num1, num2));
+        }
+        public void printCoorRoute()
+        {
+            foreach (Tuple<int, int> i in this.getCoorRoute())
+            {
+                Console.Write(" (" + i.Item1 + "," + i.Item2 + ") ");
+            }
+            Console.WriteLine();
         }
         public void setNodes(int nodes)
         {
