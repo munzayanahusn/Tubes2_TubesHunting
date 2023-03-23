@@ -71,7 +71,7 @@ public partial class MainPage : ContentPage
                 }
                 else if (mazeMap.getMapElement(i, j) == 'T')
                 {
-                    Image image = new Image { Source = "moneybag.png", WidthRequest = 35, HeightRequest = 35, BackgroundColor = Colors.White};
+                    Image image = new Image { Source = "moneybag.png", WidthRequest = 35, HeightRequest = 35, BackgroundColor = Colors.White };
                     Grid.SetRow(image, i);
                     Grid.SetColumn(image, j);
                     childgrid.Add(image);
@@ -79,8 +79,14 @@ public partial class MainPage : ContentPage
                 }
                 else if (mazeMap.getMapElement(i, j) == 'K')
                 {
-                    Label label = new Label { Text = "START", TextColor = Colors.Black, BackgroundColor = Colors.White,
-                        HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center};
+                    Label label = new Label
+                    {
+                        Text = "START",
+                        TextColor = Colors.Black,
+                        BackgroundColor = Colors.White,
+                        HorizontalOptions = LayoutOptions.Center,
+                        VerticalOptions = LayoutOptions.Center
+                    };
                     Grid.SetRow(label, i);
                     Grid.SetColumn(label, j);
                     childgrid.Add(label);
@@ -167,11 +173,9 @@ public partial class MainPage : ContentPage
         //Console.WriteLine(Algo);
         Switch TSPSwitch = (Switch)FindByName("TSPSwitch");
         Button SearchButton = (Button)FindByName("SearchButton");
-        Button VisualizeButton = (Button)FindByName("VisualizeButton");
-        Button FilePickerButton = (Button)FindByName("FilePickerButton");
         Grid childgridoutput1 = (Grid)FindByName("childgridoutput1");
         Grid childgridoutput2 = (Grid)FindByName("childgridoutput2");
-        
+
         childgridoutput1.Clear();
         childgridoutput2.Clear();
         //BoxView boxView3 = new BoxView{ Color = Color.FromArgb("#222423") };
@@ -182,8 +186,6 @@ public partial class MainPage : ContentPage
         //childgridoutput2.Add(boxView4);
         TSPSwitch.IsEnabled = false;
         SearchButton.IsEnabled = false;
-        VisualizeButton.IsEnabled = false;
-        FilePickerButton.IsEnabled = false;
         if (!FileValid) return;
         if (!Algo) //BFS
         {
@@ -196,8 +198,6 @@ public partial class MainPage : ContentPage
             }
             watch.Stop();
             TSPSwitch.IsEnabled = true;
-            VisualizeButton.IsEnabled = true;
-            FilePickerButton.IsEnabled = true;
             int[,] countV = new int[100, 100];
             List<Tuple<int, int>> visitList = bfsMap.getCoorVisited();
             List<Tuple<int, int>> routeList = bfsMap.getCoorRoute();
@@ -254,7 +254,7 @@ public partial class MainPage : ContentPage
             label.VerticalOptions = LayoutOptions.Start;
             label.TranslationY = 50;
             label.FontSize = 20;
-            label.FontFamily = "Helvetica";
+            //label.FontFamily = "Helvetica";
             //Console.WriteLine(bfsMap.toStringRoute());
             label.Text = "ROUTE:  " + bfsMap.toStringRoute();
             label.BackgroundColor = Color.FromArgb("#222423");
@@ -268,7 +268,7 @@ public partial class MainPage : ContentPage
             label1.HorizontalOptions = LayoutOptions.Start;
             label1.VerticalOptions = LayoutOptions.Center;
             label1.FontSize = 20;
-            label1.FontFamily = "Helvetica";
+            //label1.FontFamily = "Helvetica";
             label1.TranslationX = 50;
             //Console.WriteLine(bfsMap.toStringRoute());
             label1.Text = "NODES VISITED:  " + bfsMap.getNodes();
@@ -284,7 +284,7 @@ public partial class MainPage : ContentPage
             label2.VerticalOptions = LayoutOptions.Start;
             label2.TranslationY = 50;
             label2.FontSize = 20;
-            label2.FontFamily = "Helvetica";
+            //label2.FontFamily = "Helvetica";
             label2.TranslationX = 50;
             //Console.WriteLine(bfsMap.toStringRoute());
             label2.Text = "STEPS:  " + bfsMap.getRoute().Count;
@@ -298,7 +298,7 @@ public partial class MainPage : ContentPage
             label3.HorizontalOptions = LayoutOptions.Start;
             label3.VerticalOptions = LayoutOptions.Center;
             label3.FontSize = 20;
-            label3.FontFamily = "Helvetica";
+            //label3.FontFamily = "Helvetica";
             //Console.WriteLine(bfsMap.toStringRoute());
             label3.Text = "EXECUTION TIME:  " + watch.ElapsedMilliseconds + " ms";
             label3.BackgroundColor = Color.FromArgb("#5447DD");
@@ -409,7 +409,7 @@ public partial class MainPage : ContentPage
             label.VerticalOptions = LayoutOptions.Start;
             label.TranslationY = 50;
             label.FontSize = 20;
-            label.FontFamily = "Helvetica";
+            //label.FontFamily = "Helvetica";
             //Console.WriteLine(dfsMap.toStringRoute());
             label.Text = "ROUTE:  " + dfsMap.toStringRoute();
             label.BackgroundColor = Color.FromArgb("#222423");
@@ -423,7 +423,7 @@ public partial class MainPage : ContentPage
             label1.HorizontalOptions = LayoutOptions.Start;
             label1.VerticalOptions = LayoutOptions.Center;
             label1.FontSize = 20;
-            label1.FontFamily = "Helvetica";
+            //label1.FontFamily = "Helvetica";
             label1.TranslationX = 50;
             //Console.WriteLine(dfsMap.toStringRoute());
             label1.Text = "NODES VISITED:  " + dfsMap.getNodes();
@@ -439,7 +439,7 @@ public partial class MainPage : ContentPage
             label2.VerticalOptions = LayoutOptions.Start;
             label2.TranslationY = 50;
             label2.FontSize = 20;
-            label2.FontFamily = "Helvetica";
+            //label2.FontFamily = "Helvetica";
             label2.TranslationX = 50;
             //Console.WriteLine(dfsMap.toStringRoute());
             label2.Text = "STEPS:  " + dfsMap.getRoute().Count;
@@ -453,7 +453,7 @@ public partial class MainPage : ContentPage
             label3.HorizontalOptions = LayoutOptions.Start;
             label3.VerticalOptions = LayoutOptions.Center;
             label3.FontSize = 20;
-            label3.FontFamily = "Helvetica";
+            //label3.FontFamily = "Helvetica";
             //Console.WriteLine(dfsMap.toStringRoute());
             label3.Text = "EXECUTION TIME:  " + watch.ElapsedMilliseconds + " ms";
             label3.BackgroundColor = Color.FromArgb("#5447DD");

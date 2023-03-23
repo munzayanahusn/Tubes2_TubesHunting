@@ -18891,11 +18891,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/putinabillaaidira/Downloads/KULIAH/TUBESSTIMA/Tubes2_TubesHunting/src/TubesHunting/TubesHunting.csproj",
+      "projectUniqueName": "/Users/putinabillaaidira/Downloads/KULIAH/Semester 4/STIMA/Tubes2_TubesHunting/src/TubesHunting/TubesHunting.csproj",
       "projectName": "TubesHunting",
-      "projectPath": "/Users/putinabillaaidira/Downloads/KULIAH/TUBESSTIMA/Tubes2_TubesHunting/src/TubesHunting/TubesHunting.csproj",
+      "projectPath": "/Users/putinabillaaidira/Downloads/KULIAH/Semester 4/STIMA/Tubes2_TubesHunting/src/TubesHunting/TubesHunting.csproj",
       "packagesPath": "/Users/putinabillaaidira/.nuget/packages/",
-      "outputPath": "/Users/putinabillaaidira/Downloads/KULIAH/TUBESSTIMA/Tubes2_TubesHunting/src/TubesHunting/obj/",
+      "outputPath": "/Users/putinabillaaidira/Downloads/KULIAH/Semester 4/STIMA/Tubes2_TubesHunting/src/TubesHunting/obj/",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "configFilePaths": [
