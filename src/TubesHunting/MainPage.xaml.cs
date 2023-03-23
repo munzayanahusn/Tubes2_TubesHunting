@@ -167,8 +167,11 @@ public partial class MainPage : ContentPage
         //Console.WriteLine(Algo);
         Switch TSPSwitch = (Switch)FindByName("TSPSwitch");
         Button SearchButton = (Button)FindByName("SearchButton");
+        Button VisualizeButton = (Button)FindByName("VisualizeButton");
+        Button FilePickerButton = (Button)FindByName("FilePickerButton");
         Grid childgridoutput1 = (Grid)FindByName("childgridoutput1");
         Grid childgridoutput2 = (Grid)FindByName("childgridoutput2");
+        
         childgridoutput1.Clear();
         childgridoutput2.Clear();
         //BoxView boxView3 = new BoxView{ Color = Color.FromArgb("#222423") };
@@ -179,6 +182,8 @@ public partial class MainPage : ContentPage
         //childgridoutput2.Add(boxView4);
         TSPSwitch.IsEnabled = false;
         SearchButton.IsEnabled = false;
+        VisualizeButton.IsEnabled = false;
+        FilePickerButton.IsEnabled = false;
         if (!FileValid) return;
         if (!Algo) //BFS
         {
@@ -191,6 +196,8 @@ public partial class MainPage : ContentPage
             }
             watch.Stop();
             TSPSwitch.IsEnabled = true;
+            VisualizeButton.IsEnabled = true;
+            FilePickerButton.IsEnabled = true;
             int[,] countV = new int[100, 100];
             List<Tuple<int, int>> visitList = bfsMap.getCoorVisited();
             List<Tuple<int, int>> routeList = bfsMap.getCoorRoute();
