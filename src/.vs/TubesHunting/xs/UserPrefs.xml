@@ -1,18 +1,30 @@
 ﻿<Properties StartupConfiguration="{2304CB0B-EAB3-4007-8395-C8A906EB46D7}|Default">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.TubesHunting PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TubesHunting/MazeMap.cs">
+    <Files>
+      <File FileName="TubesHunting/MainPage.xaml" Line="1" Column="1" />
+      <File FileName="TubesHunting/MauiProgram.cs" Line="1" Column="1" />
+      <File FileName="TubesHunting/MainPage.xaml.cs" Line="145" Column="28" />
+      <File FileName="TubesHunting/MazeMap.cs" Line="66" Column="42" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="TubesHunting" expanded="True" />
+          <Node name="TubesHunting" expanded="True">
+            <Node name="TubesHunting" expanded="True">
+              <Node name="MainPage.xaml" expanded="True" />
+              <Node name="MazeMap.cs" selected="True" />
+            </Node>
+          </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <Xamarin.Addins.Core.Project ActiveDebugTarget="MyAppleMacCatalystID" />
+  <MonoDevelop.Ide.ItemProperties.TubesHunting PreferredExecutionTarget="MyAppleMacCatalystID" />
 </Properties>

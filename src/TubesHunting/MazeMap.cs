@@ -61,9 +61,12 @@ namespace MazeMap
                             this.mapMatrix[i][j] = huruf;
                             j++;
                         }
-                        else countBlank += 1;
+                        else if (huruf == ' ') countBlank += 1;
                     }
-                    if(countBlank != (line.Count() - 1)/2) throw new MazeException();
+                    Console.Write("cb:");
+                    Console.WriteLine(countBlank);
+                    Console.WriteLine(prevCountBlank);
+                    if (countBlank != (line.Count() - 1)/2) throw new MazeException();
                     else if(i != 0 && countBlank != prevCountBlank) throw new MazeException();
                     prevCountBlank = countBlank;
                     i++;
