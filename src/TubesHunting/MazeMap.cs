@@ -13,6 +13,7 @@ namespace MazeMap
         private int cols;
         private int countK;
         private int countT;
+        private int countBlank;
 
         /* Method */
         // Default constructor
@@ -39,9 +40,11 @@ namespace MazeMap
                     this.mapMatrix[i] = new char[cols];
 
                 // Read a text file line by line, input nilai matrix
+                int prevCountBlank = 0;
                 i = 0;
                 foreach (string line in lines)
                 {
+                    countBlank = 0;
                     char[] charPerLine = line.ToCharArray();
                     j = 0;
                     foreach (char huruf in charPerLine)
@@ -58,7 +61,11 @@ namespace MazeMap
                             this.mapMatrix[i][j] = huruf;
                             j++;
                         }
+                        else countBlank += 1;
                     }
+                    if(countBlank != (line.Count() - 1)/2) throw new MazeException();
+                    else if(i != 0 && countBlank != prevCountBlank) throw new MazeException();
+                    prevCountBlank = countBlank;
                     i++;
                 }
             }

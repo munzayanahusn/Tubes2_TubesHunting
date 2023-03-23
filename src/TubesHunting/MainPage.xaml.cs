@@ -119,18 +119,18 @@ public partial class MainPage : ContentPage
                     FileValid = true;
                     using var stream = await result.OpenReadAsync();
                     activityIndicator.IsRunning = false;
-                    //Console.WriteLine(result.FullPath);
-                    mazeMap.setCols(result.FullPath);
-                    mazeMap.setRows(result.FullPath);
-                    MazeMap.Maze mapTemp = new MazeMap.Maze(result.FullPath, mazeMap.getRows(), mazeMap.getCols());
-                    filePath = result.FullPath;
-                    mapTemp.validation();
-                    mazeMap.setMapMatrix(mapTemp.getMapMatrix());
                     label.Text = result.FileName;
                     label.TextColor = Colors.White;
                     label.BackgroundColor = Color.FromArgb("#222423");
                     childgridfile.BackgroundColor = Color.FromArgb("#222423");
                     childgridfile.Add(label);
+                    //Console.WriteLine(result.FullPath);
+                    filePath = result.FullPath;
+                    mazeMap.setCols(filePath);
+                    mazeMap.setRows(filePath);
+                    MazeMap.Maze mapTemp = new MazeMap.Maze(result.FullPath, mazeMap.getRows(), mazeMap.getCols());
+                    mapTemp.validation();
+                    mazeMap.setMapMatrix(mapTemp.getMapMatrix());
                 }
                 else throw new MazeMap.MazeException();
             }
@@ -163,21 +163,22 @@ public partial class MainPage : ContentPage
     public async void SearchButton_Clicked(System.Object sender, System.EventArgs e)
     {
         var watch = Stopwatch.StartNew();
-        Console.Write("algo");
-        Console.WriteLine(Algo);
+        //Console.Write("algo");
+        //Console.WriteLine(Algo);
         Switch TSPSwitch = (Switch)FindByName("TSPSwitch");
         Button SearchButton = (Button)FindByName("SearchButton");
         Grid childgridoutput1 = (Grid)FindByName("childgridoutput1");
         Grid childgridoutput2 = (Grid)FindByName("childgridoutput2");
         childgridoutput1.Clear();
         childgridoutput2.Clear();
-        BoxView boxView3 = new BoxView{ Color = Color.FromArgb("#222423") };
-        BoxView boxView4 = new BoxView { Color = Color.FromArgb("#5447DD") };
+        //BoxView boxView3 = new BoxView{ Color = Color.FromArgb("#222423") };
+        //BoxView boxView4 = new BoxView { Color = Color.FromArgb("#222423") };
+        //Grid.SetRow(boxView3, 0);
+        //Grid.SetRow(boxView3, 0);
+        //childgridoutput1.Add(boxView3);
+        //childgridoutput2.Add(boxView4);
         TSPSwitch.IsEnabled = false;
         SearchButton.IsEnabled = false;
-        int R = 226;
-        int G = 173;
-        int B = 95;
         if (!FileValid) return;
         if (!Algo) //BFS
         {
@@ -192,19 +193,21 @@ public partial class MainPage : ContentPage
             TSPSwitch.IsEnabled = true;
             int[,] countV = new int[100, 100];
             List<Tuple<int, int>> visitList = bfsMap.getCoorVisited();
-            Console.Write("cv:");
-            Console.WriteLine(visitList);
+            List<Tuple<int, int>> routeList = bfsMap.getCoorRoute();
+            //Console.Write("cv:");
+            //Console.WriteLine(visitList);
             for (int i = 0; i < visitList.Count; i++)
             {
-                Console.Write("cv2:");
-                Console.WriteLine(countV[visitList[i].Item1, visitList[i].Item2]);
+                //Console.Write("cv2:");
+                //Console.WriteLine(countV[visitList[i].Item1, visitList[i].Item2]);
                 //countV[visitList[i].Item1, visitList[i].Item2] += 1;
                 BoxView boxView2 = new BoxView { Color = Color.FromArgb("#E2AD5F") };
                 Grid.SetRow(boxView2, visitList[i].Item1);
                 Grid.SetColumn(boxView2, visitList[i].Item2);
                 childgrid.Add(boxView2);
                 await Task.Delay(TimeInterval * 1000);
-                boxView2.Color = Color.FromArgb("#5447DD");
+                //boxView2.Color = Color.FromArgb("#5447DD");
+                boxView2.Color = Color.FromRgba(83, 70, 221, 200 + ((countV[visitList[i].Item1, visitList[i].Item2] - 1) * 10));
                 //biboxView2.Color.AddLuminosity(countV[visitList[i].Item1, visitList[i].Item2] / 100);
                 Grid.SetRow(boxView2, visitList[i].Item1);
                 Grid.SetColumn(boxView2, visitList[i].Item2);
@@ -217,7 +220,7 @@ public partial class MainPage : ContentPage
                         Source = "moneybag.png",
                         WidthRequest = 35,
                         HeightRequest = 35,
-                        BackgroundColor = Color.FromArgb("#5447DD")
+                        BackgroundColor = boxView2.Color
                     };
                     Grid.SetRow(image, visitList[i].Item1);
                     Grid.SetColumn(image, visitList[i].Item2);
@@ -229,7 +232,7 @@ public partial class MainPage : ContentPage
                     {
                         Text = "START",
                         TextColor = Colors.White,
-                        BackgroundColor = Color.FromArgb("#5447DD"),
+                        BackgroundColor = boxView2.Color,
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Center
                     };
@@ -245,8 +248,10 @@ public partial class MainPage : ContentPage
             label.TranslationY = 50;
             label.FontSize = 20;
             label.FontFamily = "Helvetica";
-            Console.WriteLine(bfsMap.toStringRoute());
+            //Console.WriteLine(bfsMap.toStringRoute());
             label.Text = "ROUTE:  " + bfsMap.toStringRoute();
+            label.BackgroundColor = Color.FromArgb("#222423");
+            label.Padding = new Thickness(20);
             Grid.SetRow(label, 0);
             childgridoutput1.Add(label);
             bfsMap.setNodes(bfsMap.countNodes());
@@ -257,9 +262,12 @@ public partial class MainPage : ContentPage
             label1.VerticalOptions = LayoutOptions.Center;
             label1.FontSize = 20;
             label1.FontFamily = "Helvetica";
-            label1.TranslationX = 10;
-            Console.WriteLine(bfsMap.toStringRoute());
+            label1.TranslationX = 50;
+            //Console.WriteLine(bfsMap.toStringRoute());
             label1.Text = "NODES VISITED:  " + bfsMap.getNodes();
+            label1.TextColor = Colors.Black;
+            label1.BackgroundColor = Color.FromArgb("#91BB95");
+            label1.Padding = new Thickness(20);
             Grid.SetRow(label1, 1);
             childgridoutput2.Add(label1);
 
@@ -270,9 +278,11 @@ public partial class MainPage : ContentPage
             label2.TranslationY = 50;
             label2.FontSize = 20;
             label2.FontFamily = "Helvetica";
-            label2.TranslationX = 10;
-            Console.WriteLine(bfsMap.toStringRoute());
+            label2.TranslationX = 50;
+            //Console.WriteLine(bfsMap.toStringRoute());
             label2.Text = "STEPS:  " + bfsMap.getRoute().Count;
+            label2.BackgroundColor = Color.FromArgb("#E2815E");
+            label2.Padding = new Thickness(20);
             Grid.SetRow(label2, 0);
             childgridoutput2.Add(label2);
 
@@ -282,13 +292,51 @@ public partial class MainPage : ContentPage
             label3.VerticalOptions = LayoutOptions.Center;
             label3.FontSize = 20;
             label3.FontFamily = "Helvetica";
-            Console.WriteLine(bfsMap.toStringRoute());
+            //Console.WriteLine(bfsMap.toStringRoute());
             label3.Text = "EXECUTION TIME:  " + watch.ElapsedMilliseconds + " ms";
+            label3.BackgroundColor = Color.FromArgb("#5447DD");
+            label3.Padding = new Thickness(20);
             Grid.SetRow(label3, 1);
             childgridoutput1.Add(label3);
 
+            for (int i = 0; i < routeList.Count; i++)
+            {
+                BoxView boxView2 = new BoxView { Color = Color.FromArgb("#91BB95") };
+                Grid.SetRow(boxView2, routeList[i].Item1);
+                Grid.SetColumn(boxView2, routeList[i].Item2);
+                childgrid.Add(boxView2);
+
+                if (isTreasure[routeList[i].Item1, routeList[i].Item2])
+                {
+                    Image image = new Image
+                    {
+                        Source = "moneybag.png",
+                        WidthRequest = 35,
+                        HeightRequest = 35,
+                        BackgroundColor = Color.FromArgb("#91BB95")
+                    };
+                    Grid.SetRow(image, routeList[i].Item1);
+                    Grid.SetColumn(image, routeList[i].Item2);
+                    childgrid.Add(image);
+                }
+                else if (isStart[routeList[i].Item1, routeList[i].Item2])
+                {
+                    Label label5 = new Label
+                    {
+                        Text = "START",
+                        TextColor = Colors.Black,
+                        BackgroundColor = Color.FromArgb("#91BB95"),
+                        HorizontalOptions = LayoutOptions.Center,
+                        VerticalOptions = LayoutOptions.Center
+                    };
+                    Grid.SetRow(label5, routeList[i].Item1);
+                    Grid.SetColumn(label5, routeList[i].Item2);
+                    childgrid.Add(label5);
+                }
+            }
+
         }
-        else
+        else //DFS
         {
             DFSalgorithm.DFS dfsMap = new DFSalgorithm.DFS(mazeMap);
             Game.GameState game = new Game.GameState(mazeMap.getMapMatrix());
@@ -302,20 +350,20 @@ public partial class MainPage : ContentPage
             watch.Stop();
             int[,] countV = new int[100, 100];
             List<Tuple<int, int>> visitList = dfsMap.getCoorVisited();
-            Console.Write("cv:");
-            Console.WriteLine(visitList);
+            List<Tuple<int, int>> routeList = dfsMap.getCoorRoute();
+            //Console.Write("cv:");
+            //Console.WriteLine(visitList);
             for (int i = 0; i < visitList.Count; i++)
             {
-                Console.Write("cv2:");
-                Console.WriteLine(countV[visitList[i].Item1, visitList[i].Item2]);
+                //Console.Write("cv2:");
+                //Console.WriteLine(countV[visitList[i].Item1, visitList[i].Item2]);
                 countV[visitList[i].Item1, visitList[i].Item2] += 1;
                 BoxView boxView2 = new BoxView { Color = Color.FromArgb("#E2AD5F") };
                 Grid.SetRow(boxView2, visitList[i].Item1);
                 Grid.SetColumn(boxView2, visitList[i].Item2);
                 childgrid.Add(boxView2);
                 await Task.Delay(TimeInterval * 1000);
-                boxView2.Color = Color.FromArgb("#5447DD");
-                boxView2.Color.AddLuminosity(countV[visitList[i].Item1, visitList[i].Item2] / 100);
+                boxView2.Color = Color.FromRgb(83, 70, 221 - ((countV[visitList[i].Item1, visitList[i].Item2] - 1) * 50));
                 Grid.SetRow(boxView2, visitList[i].Item1);
                 Grid.SetColumn(boxView2, visitList[i].Item2);
                 childgrid.Add(boxView2);
@@ -327,7 +375,7 @@ public partial class MainPage : ContentPage
                         Source = "moneybag.png",
                         WidthRequest = 35,
                         HeightRequest = 35,
-                        BackgroundColor = Color.FromArgb("#5447DD")
+                        BackgroundColor = boxView2.Color
                     };
                     Grid.SetRow(image, visitList[i].Item1);
                     Grid.SetColumn(image, visitList[i].Item2);
@@ -339,7 +387,7 @@ public partial class MainPage : ContentPage
                     {
                         Text = "START",
                         TextColor = Colors.White,
-                        BackgroundColor = Color.FromArgb("#5447DD"),
+                        BackgroundColor = boxView2.Color,
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Center
                     };
@@ -355,8 +403,10 @@ public partial class MainPage : ContentPage
             label.TranslationY = 50;
             label.FontSize = 20;
             label.FontFamily = "Helvetica";
-            Console.WriteLine(dfsMap.toStringRoute());
+            //Console.WriteLine(dfsMap.toStringRoute());
             label.Text = "ROUTE:  " + dfsMap.toStringRoute();
+            label.BackgroundColor = Color.FromArgb("#222423");
+            label.Padding = new Thickness(20);
             Grid.SetRow(label, 0);
             childgridoutput1.Add(label);
 
@@ -367,9 +417,12 @@ public partial class MainPage : ContentPage
             label1.VerticalOptions = LayoutOptions.Center;
             label1.FontSize = 20;
             label1.FontFamily = "Helvetica";
-            label1.TranslationX = 10;
-            Console.WriteLine(dfsMap.toStringRoute());
+            label1.TranslationX = 50;
+            //Console.WriteLine(dfsMap.toStringRoute());
             label1.Text = "NODES VISITED:  " + dfsMap.getNodes();
+            label1.TextColor = Colors.Black;
+            label1.BackgroundColor = Color.FromArgb("#91BB95");
+            label1.Padding = new Thickness(20);
             Grid.SetRow(label1, 1);
             childgridoutput2.Add(label1);
 
@@ -380,9 +433,11 @@ public partial class MainPage : ContentPage
             label2.TranslationY = 50;
             label2.FontSize = 20;
             label2.FontFamily = "Helvetica";
-            label2.TranslationX = 10;
-            Console.WriteLine(dfsMap.toStringRoute());
+            label2.TranslationX = 50;
+            //Console.WriteLine(dfsMap.toStringRoute());
             label2.Text = "STEPS:  " + dfsMap.getRoute().Count;
+            label2.BackgroundColor = Color.FromArgb("#E2815E");
+            label2.Padding = new Thickness(20);
             Grid.SetRow(label2, 0);
             childgridoutput2.Add(label2);
 
@@ -392,10 +447,48 @@ public partial class MainPage : ContentPage
             label3.VerticalOptions = LayoutOptions.Center;
             label3.FontSize = 20;
             label3.FontFamily = "Helvetica";
-            Console.WriteLine(dfsMap.toStringRoute());
+            //Console.WriteLine(dfsMap.toStringRoute());
             label3.Text = "EXECUTION TIME:  " + watch.ElapsedMilliseconds + " ms";
+            label3.BackgroundColor = Color.FromArgb("#5447DD");
+            label3.Padding = new Thickness(20);
             Grid.SetRow(label3, 1);
             childgridoutput1.Add(label3);
+
+            for (int i = 0; i < routeList.Count; i++)
+            {
+                BoxView boxView2 = new BoxView { Color = Color.FromArgb("#91BB95") };
+                Grid.SetRow(boxView2, routeList[i].Item1);
+                Grid.SetColumn(boxView2, routeList[i].Item2);
+                childgrid.Add(boxView2);
+
+                if (isTreasure[routeList[i].Item1, routeList[i].Item2])
+                {
+                    Image image = new Image
+                    {
+                        Source = "moneybag.png",
+                        WidthRequest = 35,
+                        HeightRequest = 35,
+                        BackgroundColor = Color.FromArgb("#91BB95")
+                    };
+                    Grid.SetRow(image, routeList[i].Item1);
+                    Grid.SetColumn(image, routeList[i].Item2);
+                    childgrid.Add(image);
+                }
+                else if (isStart[routeList[i].Item1, routeList[i].Item2])
+                {
+                    Label label5 = new Label
+                    {
+                        Text = "START",
+                        TextColor = Colors.Black,
+                        BackgroundColor = Color.FromArgb("#91BB95"),
+                        HorizontalOptions = LayoutOptions.Center,
+                        VerticalOptions = LayoutOptions.Center
+                    };
+                    Grid.SetRow(label5, routeList[i].Item1);
+                    Grid.SetColumn(label5, routeList[i].Item2);
+                    childgrid.Add(label5);
+                }
+            }
         }
     }
 
@@ -407,14 +500,14 @@ public partial class MainPage : ContentPage
     public void TimeSlider_ValueChanged(System.Object sender, Microsoft.Maui.Controls.ValueChangedEventArgs e)
     {
         TimeInterval = (int)e.NewValue;
-        Console.Write("ti:");
-        Console.WriteLine(TimeInterval);
+        //Console.Write("ti:");
+        //Console.WriteLine(TimeInterval);
     }
 
     void SizeSlider_ValueChanged(System.Object sender, Microsoft.Maui.Controls.ValueChangedEventArgs e)
     {
         BoxMargin = e.NewValue;
-        Console.Write("ni:");
-        Console.WriteLine(BoxMargin);
+        //Console.Write("ni:");
+        //Console.WriteLine(BoxMargin);
     }
 }
