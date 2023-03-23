@@ -99,7 +99,11 @@ namespace DFSalgorithm
                     // Console.WriteLine("Found");
                     maze.setMapElement('R', pos.getY(), pos.getX());
                     game.setTreasureCount(game.getTreasureCount() - 1);
-                    if (game.getTreasureCount() == 0) return;
+                    if (game.getTreasureCount() == 0)
+                    {
+                        Visit(pos.getY(), pos.getX());
+                        return;
+                    }    
                 }
                 if (isAllAdjVisited())
                 {

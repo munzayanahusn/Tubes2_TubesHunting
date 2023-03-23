@@ -20,6 +20,10 @@
 		<data>
 		rs7mnmb6ENrdOSWld5PRx8UGhj8=
 		</data>
+		<key>Resources/Images/moneybag.png</key>
+		<data>
+		F0uTQQJYIOqZsSzzidzd/nab3M8=
+		</data>
 		<key>Resources/MauiInfo.plist</key>
 		<data>
 		iEtuUGCV6JM3gxS/pO33swhmpp8=
@@ -55,6 +59,10 @@
 		<key>Resources/inputfiles.png</key>
 		<data>
 		rs7mnmb6ENrdOSWld5PRx8UGhj8=
+		</data>
+		<key>Resources/moneybag.png</key>
+		<data>
+		F0uTQQJYIOqZsSzzidzd/nab3M8=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -1337,14 +1345,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			9MkAVYy6kPgl004nErPEnR9zISC9Ygs4749bZGBbq1w=
+			P7exEC5+zRyICdrzD8/prthrmpCti8NczqhCgWCtYng=
 			</data>
 		</dict>
 		<key>MonoBundle/TubesHunting.pdb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			TrJ616Nl0Ey6mAFel4V6UFeSZRgVeoWRb3RoVx1M8Xw=
+			LsIlfEJMhYcua1P+hPLNv0sCLOw3MLCG6GvHXt1hp/4=
 			</data>
 		</dict>
 		<key>MonoBundle/WindowsBase.dll</key>
@@ -1452,6 +1460,13 @@
 			o7stwAJwijLTAckjzUQin8/d7iwDcY73gnBAo0Kg3GU=
 			</data>
 		</dict>
+		<key>Resources/Images/moneybag.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			3eecHS9LVASCtrz+32ezYJKvJEobF7xUcQU1/e9Q3S8=
+			</data>
+		</dict>
 		<key>Resources/MauiInfo.plist</key>
 		<dict>
 			<key>hash2</key>
@@ -1513,6 +1528,13 @@
 			<key>hash2</key>
 			<data>
 			o7stwAJwijLTAckjzUQin8/d7iwDcY73gnBAo0Kg3GU=
+			</data>
+		</dict>
+		<key>Resources/moneybag.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			3eecHS9LVASCtrz+32ezYJKvJEobF7xUcQU1/e9Q3S8=
 			</data>
 		</dict>
 	</dict>

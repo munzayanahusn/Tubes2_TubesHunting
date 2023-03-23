@@ -258,3 +258,4 @@
 /Users/putinabillaaidira/Downloads/KULIAH/TUBESSTIMA/Tubes2_TubesHunting/src/TubesHunting/obj/Debug/net7.0-maccatalyst/maccatalyst-x64/TubesHunting.csproj.CopyComplete
 /Users/putinabillaaidira/Downloads/KULIAH/TUBESSTIMA/Tubes2_TubesHunting/src/TubesHunting/obj/Debug/net7.0-maccatalyst/maccatalyst-x64/TubesHunting.genruntimeconfig.cache
 /Users/putinabillaaidira/Downloads/KULIAH/TUBESSTIMA/Tubes2_TubesHunting/src/TubesHunting/obj/Debug/net7.0-maccatalyst/maccatalyst-x64/ref/TubesHunting.dll
+/Users/putinabillaaidira/Downloads/KULIAH/TUBESSTIMA/Tubes2_TubesHunting/src/TubesHunting/obj/Debug/net7.0-maccatalyst/maccatalyst-x64/resizetizer/r/Resources/moneybag.png

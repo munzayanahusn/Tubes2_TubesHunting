@@ -14,7 +14,7 @@ namespace MazeMap
         private int countK;
         private int countT;
 
-        /* Attributes */
+        /* Method */
         // Default constructor
         public Maze()
         {
@@ -23,6 +23,7 @@ namespace MazeMap
             this.rows = 0;
 
         }
+
         // User-defined constructor
         public Maze(string filePath, int rows, int cols)
         {

@@ -6,6 +6,8 @@ using Microsoft.Maui.Controls.Compatibility;
 using Microsoft.Maui.Controls.PlatformConfiguration.GTKSpecific;
 using BoxView = Microsoft.Maui.Controls.BoxView;
 using Grid = Microsoft.Maui.Controls.Grid;
+using System.Diagnostics;
+using Switch = Microsoft.Maui.Controls.Switch;
 
 namespace TubesHunting;
 
@@ -18,6 +20,9 @@ public partial class MainPage : ContentPage
     private int TimeInterval;
     private Boolean FileValid;
     private double BoxMargin;
+    private string filePath;
+    private Boolean[,] isTreasure;
+    private Boolean[,] isStart;
 
     public MainPage()
     {
@@ -32,10 +37,17 @@ public partial class MainPage : ContentPage
         TSP = false; //Default:TSP inactive
         TimeInterval = 0;
         FileValid = false;
-        BoxMargin = 100;
+        BoxMargin = 220;
+        isTreasure = new Boolean[100, 100];
+        isStart = new Boolean[100, 100];
     }
     public void setMaze()
     {
+        Array.Clear(isTreasure);
+        Array.Clear(isStart);
+        MazeMap.Maze mapTemp = new MazeMap.Maze(filePath, mazeMap.getRows(), mazeMap.getCols());
+        mapTemp.validation();
+        mazeMap.setMapMatrix(mapTemp.getMapMatrix());
         Grid rootgrid = (Grid)FindByName("rootgrid");
         if (!FileValid) return;
         childgrid.Clear();
@@ -46,33 +58,33 @@ public partial class MainPage : ContentPage
             for (int j = 0; j < mazeMap.getCols(); j++)
             {
                 childgrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(60) });
+                BoxView boxView2 = new BoxView { Color = Colors.White };
+                Grid.SetRow(boxView2, i);
+                Grid.SetColumn(boxView2, j);
+                childgrid.Add(boxView2);
                 if (mazeMap.getMapElement(i, j) == 'X')
                 {
-                    BoxView boxView2 = new BoxView { Color = Color.FromArgb("#222423") };
-                    Grid.SetRow(boxView2, i);
-                    Grid.SetColumn(boxView2, j);
-                    childgrid.Add(boxView2);
+                    BoxView boxView3 = new BoxView { Color = Color.FromArgb("#222423") };
+                    Grid.SetRow(boxView3, i);
+                    Grid.SetColumn(boxView3, j);
+                    childgrid.Add(boxView3);
                 }
                 else if (mazeMap.getMapElement(i, j) == 'T')
                 {
-                    Label label = new Label { Text = "Treasure", TextColor = Colors.Black, BackgroundColor = Colors.White };
-                    Grid.SetRow(label, i);
-                    Grid.SetColumn(label, j);
-                    childgrid.Add(label);
+                    Image image = new Image { Source = "moneybag.png", WidthRequest = 35, HeightRequest = 35, BackgroundColor = Colors.White};
+                    Grid.SetRow(image, i);
+                    Grid.SetColumn(image, j);
+                    childgrid.Add(image);
+                    isTreasure[i, j] = true;
                 }
                 else if (mazeMap.getMapElement(i, j) == 'K')
                 {
-                    Label label = new Label { Text = "Start", TextColor = Colors.Black, BackgroundColor = Colors.White };
+                    Label label = new Label { Text = "START", TextColor = Colors.Black, BackgroundColor = Colors.White,
+                        HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center};
                     Grid.SetRow(label, i);
                     Grid.SetColumn(label, j);
                     childgrid.Add(label);
-                }
-                else
-                {
-                    BoxView boxView2 = new BoxView { Color = Colors.White };
-                    Grid.SetRow(boxView2, i);
-                    Grid.SetColumn(boxView2, j);
-                    childgrid.Add(boxView2);
+                    isStart[i, j] = true;
                 }
             }
         }
@@ -111,6 +123,7 @@ public partial class MainPage : ContentPage
                     mazeMap.setCols(result.FullPath);
                     mazeMap.setRows(result.FullPath);
                     MazeMap.Maze mapTemp = new MazeMap.Maze(result.FullPath, mazeMap.getRows(), mazeMap.getCols());
+                    filePath = result.FullPath;
                     mapTemp.validation();
                     mazeMap.setMapMatrix(mapTemp.getMapMatrix());
                     label.Text = result.FileName;
@@ -137,6 +150,8 @@ public partial class MainPage : ContentPage
     public void VisualizeButton_Clicked(System.Object sender, System.EventArgs e)
     {
         if (!FileValid) return;
+        Button SearchButton = (Button)FindByName("SearchButton");
+        SearchButton.IsEnabled = true;
         setMaze();
     }
 
@@ -147,14 +162,19 @@ public partial class MainPage : ContentPage
 
     public async void SearchButton_Clicked(System.Object sender, System.EventArgs e)
     {
+        var watch = Stopwatch.StartNew();
         Console.Write("algo");
         Console.WriteLine(Algo);
         Switch TSPSwitch = (Switch)FindByName("TSPSwitch");
+        Button SearchButton = (Button)FindByName("SearchButton");
         Grid childgridoutput1 = (Grid)FindByName("childgridoutput1");
         Grid childgridoutput2 = (Grid)FindByName("childgridoutput2");
         childgridoutput1.Clear();
         childgridoutput2.Clear();
+        BoxView boxView3 = new BoxView{ Color = Color.FromArgb("#222423") };
+        BoxView boxView4 = new BoxView { Color = Color.FromArgb("#5447DD") };
         TSPSwitch.IsEnabled = false;
+        SearchButton.IsEnabled = false;
         int R = 226;
         int G = 173;
         int B = 95;
@@ -168,37 +188,65 @@ public partial class MainPage : ContentPage
             {
                 bfsMap.runTSPforBFS(bfsMap.getCurrentPosition(), mazeMap, game);
             }
+            watch.Stop();
             TSPSwitch.IsEnabled = true;
-
+            int[,] countV = new int[100, 100];
             List<Tuple<int, int>> visitList = bfsMap.getCoorVisited();
             Console.Write("cv:");
             Console.WriteLine(visitList);
-            int[][] countV = { };
             for (int i = 0; i < visitList.Count; i++)
             {
-                R += countV[visitList[i].Item1][visitList[i].Item2];
-                G += countV[visitList[i].Item1][visitList[i].Item2];
-                B += countV[visitList[i].Item1][visitList[i].Item2];
-                countV[visitList[i].Item1][visitList[i].Item2] += 1;
-                BoxView boxView2 = new BoxView { Color = Color.FromArgb("#5447DD") };
+                Console.Write("cv2:");
+                Console.WriteLine(countV[visitList[i].Item1, visitList[i].Item2]);
+                //countV[visitList[i].Item1, visitList[i].Item2] += 1;
+                BoxView boxView2 = new BoxView { Color = Color.FromArgb("#E2AD5F") };
                 Grid.SetRow(boxView2, visitList[i].Item1);
                 Grid.SetColumn(boxView2, visitList[i].Item2);
                 childgrid.Add(boxView2);
                 await Task.Delay(TimeInterval * 1000);
-                boxView2.Color = Color.FromArgb("#5447D");
+                boxView2.Color = Color.FromArgb("#5447DD");
+                //biboxView2.Color.AddLuminosity(countV[visitList[i].Item1, visitList[i].Item2] / 100);
                 Grid.SetRow(boxView2, visitList[i].Item1);
                 Grid.SetColumn(boxView2, visitList[i].Item2);
                 childgrid.Add(boxView2);
+
+                if (isTreasure[visitList[i].Item1, visitList[i].Item2])
+                {
+                    Image image = new Image
+                    {
+                        Source = "moneybag.png",
+                        WidthRequest = 35,
+                        HeightRequest = 35,
+                        BackgroundColor = Color.FromArgb("#5447DD")
+                    };
+                    Grid.SetRow(image, visitList[i].Item1);
+                    Grid.SetColumn(image, visitList[i].Item2);
+                    childgrid.Add(image);
+                }
+                else if (isStart[visitList[i].Item1, visitList[i].Item2])
+                {
+                    Label label5 = new Label
+                    {
+                        Text = "START",
+                        TextColor = Colors.White,
+                        BackgroundColor = Color.FromArgb("#5447DD"),
+                        HorizontalOptions = LayoutOptions.Center,
+                        VerticalOptions = LayoutOptions.Center
+                    };
+                    Grid.SetRow(label5, visitList[i].Item1);
+                    Grid.SetColumn(label5, visitList[i].Item2);
+                    childgrid.Add(label5);
+                }
             }
             // ROUTE:
             Label label = new Label();
             label.HorizontalOptions = LayoutOptions.Start;
-            label.VerticalOptions = LayoutOptions.Center;
+            label.VerticalOptions = LayoutOptions.Start;
+            label.TranslationY = 50;
             label.FontSize = 20;
             label.FontFamily = "Helvetica";
             Console.WriteLine(bfsMap.toStringRoute());
             label.Text = "ROUTE:  " + bfsMap.toStringRoute();
-            label.TranslationX = 150;
             Grid.SetRow(label, 0);
             childgridoutput1.Add(label);
             bfsMap.setNodes(bfsMap.countNodes());
@@ -209,6 +257,7 @@ public partial class MainPage : ContentPage
             label1.VerticalOptions = LayoutOptions.Center;
             label1.FontSize = 20;
             label1.FontFamily = "Helvetica";
+            label1.TranslationX = 10;
             Console.WriteLine(bfsMap.toStringRoute());
             label1.Text = "NODES VISITED:  " + bfsMap.getNodes();
             Grid.SetRow(label1, 1);
@@ -217,13 +266,26 @@ public partial class MainPage : ContentPage
             // STEPS:
             Label label2 = new Label();
             label2.HorizontalOptions = LayoutOptions.Start;
-            label2.VerticalOptions = LayoutOptions.Center;
+            label2.VerticalOptions = LayoutOptions.Start;
+            label2.TranslationY = 50;
             label2.FontSize = 20;
             label2.FontFamily = "Helvetica";
+            label2.TranslationX = 10;
             Console.WriteLine(bfsMap.toStringRoute());
             label2.Text = "STEPS:  " + bfsMap.getRoute().Count;
             Grid.SetRow(label2, 0);
             childgridoutput2.Add(label2);
+
+            // EXECUTION TIME:
+            Label label3 = new Label();
+            label3.HorizontalOptions = LayoutOptions.Start;
+            label3.VerticalOptions = LayoutOptions.Center;
+            label3.FontSize = 20;
+            label3.FontFamily = "Helvetica";
+            Console.WriteLine(bfsMap.toStringRoute());
+            label3.Text = "EXECUTION TIME:  " + watch.ElapsedMilliseconds + " ms";
+            Grid.SetRow(label3, 1);
+            childgridoutput1.Add(label3);
 
         }
         else
@@ -237,16 +299,64 @@ public partial class MainPage : ContentPage
                 dfsMap.setCurrentAction(mazeMap, game);
             }
             TSPSwitch.IsEnabled = true;
+            watch.Stop();
+            int[,] countV = new int[100, 100];
+            List<Tuple<int, int>> visitList = dfsMap.getCoorVisited();
+            Console.Write("cv:");
+            Console.WriteLine(visitList);
+            for (int i = 0; i < visitList.Count; i++)
+            {
+                Console.Write("cv2:");
+                Console.WriteLine(countV[visitList[i].Item1, visitList[i].Item2]);
+                countV[visitList[i].Item1, visitList[i].Item2] += 1;
+                BoxView boxView2 = new BoxView { Color = Color.FromArgb("#E2AD5F") };
+                Grid.SetRow(boxView2, visitList[i].Item1);
+                Grid.SetColumn(boxView2, visitList[i].Item2);
+                childgrid.Add(boxView2);
+                await Task.Delay(TimeInterval * 1000);
+                boxView2.Color = Color.FromArgb("#5447DD");
+                boxView2.Color.AddLuminosity(countV[visitList[i].Item1, visitList[i].Item2] / 100);
+                Grid.SetRow(boxView2, visitList[i].Item1);
+                Grid.SetColumn(boxView2, visitList[i].Item2);
+                childgrid.Add(boxView2);
 
+                if (isTreasure[visitList[i].Item1, visitList[i].Item2])
+                {
+                    Image image = new Image
+                    {
+                        Source = "moneybag.png",
+                        WidthRequest = 35,
+                        HeightRequest = 35,
+                        BackgroundColor = Color.FromArgb("#5447DD")
+                    };
+                    Grid.SetRow(image, visitList[i].Item1);
+                    Grid.SetColumn(image, visitList[i].Item2);
+                    childgrid.Add(image);
+                }
+                else if (isStart[visitList[i].Item1, visitList[i].Item2])
+                {
+                    Label label5 = new Label
+                    {
+                        Text = "START",
+                        TextColor = Colors.White,
+                        BackgroundColor = Color.FromArgb("#5447DD"),
+                        HorizontalOptions = LayoutOptions.Center,
+                        VerticalOptions = LayoutOptions.Center
+                    };
+                    Grid.SetRow(label5, visitList[i].Item1);
+                    Grid.SetColumn(label5, visitList[i].Item2);
+                    childgrid.Add(label5);
+                }
+            }
             // ROUTE:
             Label label = new Label();
             label.HorizontalOptions = LayoutOptions.Start;
-            label.VerticalOptions = LayoutOptions.Center;
+            label.VerticalOptions = LayoutOptions.Start;
+            label.TranslationY = 50;
             label.FontSize = 20;
             label.FontFamily = "Helvetica";
             Console.WriteLine(dfsMap.toStringRoute());
             label.Text = "ROUTE:  " + dfsMap.toStringRoute();
-            label.TranslationX = 150;
             Grid.SetRow(label, 0);
             childgridoutput1.Add(label);
 
@@ -257,6 +367,7 @@ public partial class MainPage : ContentPage
             label1.VerticalOptions = LayoutOptions.Center;
             label1.FontSize = 20;
             label1.FontFamily = "Helvetica";
+            label1.TranslationX = 10;
             Console.WriteLine(dfsMap.toStringRoute());
             label1.Text = "NODES VISITED:  " + dfsMap.getNodes();
             Grid.SetRow(label1, 1);
@@ -265,32 +376,26 @@ public partial class MainPage : ContentPage
             // STEPS:
             Label label2 = new Label();
             label2.HorizontalOptions = LayoutOptions.Start;
-            label2.VerticalOptions = LayoutOptions.Center;
+            label2.VerticalOptions = LayoutOptions.Start;
+            label2.TranslationY = 50;
             label2.FontSize = 20;
             label2.FontFamily = "Helvetica";
+            label2.TranslationX = 10;
             Console.WriteLine(dfsMap.toStringRoute());
             label2.Text = "STEPS:  " + dfsMap.getRoute().Count;
             Grid.SetRow(label2, 0);
             childgridoutput2.Add(label2);
 
-            int[][] countV = Array.Empty<int[]>();
-            List<Tuple<int, int>> visitList = dfsMap.getCoorVisited();
-            for (int i = 0; i < visitList.Count; i++)
-            {
-                R += countV[visitList[i].Item1][visitList[i].Item2];
-                G += countV[visitList[i].Item1][visitList[i].Item2];
-                B += countV[visitList[i].Item1][visitList[i].Item2];
-                countV[visitList[i].Item1][visitList[i].Item2] += 1;
-                BoxView boxView2 = new BoxView { Color = Color.FromRgb(R, G, B) };
-                Grid.SetRow(boxView2, visitList[i].Item1);
-                Grid.SetColumn(boxView2, visitList[i].Item2);
-                childgrid.Add(boxView2);
-                await Task.Delay(TimeInterval * 1000);
-                boxView2.Color = Color.FromArgb("#5447D");
-                Grid.SetRow(boxView2, visitList[i].Item1);
-                Grid.SetColumn(boxView2, visitList[i].Item2);
-                childgrid.Add(boxView2);
-            }
+            // EXECUTION TIME:
+            Label label3 = new Label();
+            label3.HorizontalOptions = LayoutOptions.Start;
+            label3.VerticalOptions = LayoutOptions.Center;
+            label3.FontSize = 20;
+            label3.FontFamily = "Helvetica";
+            Console.WriteLine(dfsMap.toStringRoute());
+            label3.Text = "EXECUTION TIME:  " + watch.ElapsedMilliseconds + " ms";
+            Grid.SetRow(label3, 1);
+            childgridoutput1.Add(label3);
         }
     }
 
