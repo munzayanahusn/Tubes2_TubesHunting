@@ -7,9 +7,9 @@
       <dSYMSourcePathExists>false</dSYMSourcePathExists>
       <NoSymbolStrip>true</NoSymbolStrip>
       <dSYMInfoPlistRelativePath>TubesHunting.app.dSYM\Contents\Info.plist</dSYMInfoPlistRelativePath>
-      <SymbolFile>/Users/putinabillaaidira/Downloads/KULIAH/TUBESSTIMA/Tubes2_TubesHunting/src/TubesHunting/obj/Debug/net7.0-ios/iossimulator-x64/mtouch-symbols.list</SymbolFile>
+      <SymbolFile>/Users/putinabillaaidira/Downloads/KULIAH/Semester 4/STIMA/Tubes2_TubesHunting/src/TubesHunting/obj/Debug/net7.0-ios/iossimulator-x64/mtouch-symbols.list</SymbolFile>
       <DSymName>TubesHunting.app.dSYM</DSymName>
-      <SourceProjectPath>/Users/putinabillaaidira/Downloads/KULIAH/TUBESSTIMA/Tubes2_TubesHunting/src/TubesHunting</SourceProjectPath>
+      <SourceProjectPath>/Users/putinabillaaidira/Downloads/KULIAH/Semester 4/STIMA/Tubes2_TubesHunting/src/TubesHunting</SourceProjectPath>
     </_PostProcessingItem>
   </ItemGroup>
 </Project>

@@ -208,13 +208,16 @@ public partial class MainPage : ContentPage
                 //Console.Write("cv2:");
                 //Console.WriteLine(countV[visitList[i].Item1, visitList[i].Item2]);
                 //countV[visitList[i].Item1, visitList[i].Item2] += 1;
+                countV[visitList[i].Item1, visitList[i].Item2] += 1;
                 BoxView boxView2 = new BoxView { Color = Color.FromArgb("#E2AD5F") };
                 Grid.SetRow(boxView2, visitList[i].Item1);
                 Grid.SetColumn(boxView2, visitList[i].Item2);
                 childgrid.Add(boxView2);
                 await Task.Delay(TimeInterval * 1000);
-                //boxView2.Color = Color.FromArgb("#5447DD");
-                boxView2.Color = Color.FromRgba(83, 70, 221, 200 + ((countV[visitList[i].Item1, visitList[i].Item2] - 1) * 10));
+                boxView2.Color = Color.FromRgb(83, 70, 221 - ((countV[visitList[i].Item1, visitList[i].Item2] - 1) * 50));
+                Grid.SetRow(boxView2, visitList[i].Item1);
+                Grid.SetColumn(boxView2, visitList[i].Item2);
+                childgrid.Add(boxView2);
                 //biboxView2.Color.AddLuminosity(countV[visitList[i].Item1, visitList[i].Item2] / 100);
                 Grid.SetRow(boxView2, visitList[i].Item1);
                 Grid.SetColumn(boxView2, visitList[i].Item2);
