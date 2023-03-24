@@ -55,7 +55,7 @@ namespace DFSalgorithm
         // Implementasi method untuk backtracking saat tidak ada lagi adjacent node yang dapat dikunjungi
         public void backTrack(int back)
         {
-            Console.WriteLine("Back " + back);
+            //Console.WriteLine("Back " + back);
             char item;
             if (back >= 0)
             {
@@ -91,7 +91,7 @@ namespace DFSalgorithm
             // this.printRoute();
             // this.printBackRoute();
             // this.printVisitedMap();
-            Console.WriteLine();
+            //Console.WriteLine();
             if (game.getTreasureCount() > 0)
             {
                 if (maze.getMapElement(pos.getY(), pos.getX()) == GameState.TREASURE_PLACE)

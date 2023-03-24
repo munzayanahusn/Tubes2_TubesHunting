@@ -226,14 +226,14 @@ namespace ExplorerState
         {
             int i;
             string s = "";
-            Console.Write("rc:");
-            Console.WriteLine(this.route.Capacity);
-            for (i = 0; i < this.route.Capacity; i++)
+            //Console.Write("rc:");
+            //Console.WriteLine(this.route.Count);
+            for (i = 0; i < this.route.Count; i++)
             {
-                Console.Write("s:");
-                Console.WriteLine(s);
+                //Console.Write("s:");
+                //Console.WriteLine(s);
                 s = s + (route[i]);
-                if (i < this.route.Capacity - 1) s = s + "  ->  ";
+                if (i < this.route.Count - 1) s = s + "  ->  ";
             }
             return s;
         }
@@ -242,7 +242,7 @@ namespace ExplorerState
         {
             Visit(this.getCurrentPosition().getY(), this.getCurrentPosition().getX());
             this.route.Add('U');
-            Console.WriteLine(this.getCurrentPosition().getX() + "-" + this.getCurrentPosition().getY() + " U ");
+            //Console.WriteLine(this.getCurrentPosition().getX() + "-" + this.getCurrentPosition().getY() + " U ");
             Position newPos = new Position(this.getCurrentPosition().getX(), this.getCurrentPosition().getY() - 1);
             setCurrentPosition(newPos);
         }
@@ -250,7 +250,7 @@ namespace ExplorerState
         {
             Visit(this.getCurrentPosition().getY(), this.getCurrentPosition().getX());
             this.route.Add('D');
-            Console.WriteLine(this.getCurrentPosition().getX() + "-" + this.getCurrentPosition().getY() + " D");
+            //Console.WriteLine(this.getCurrentPosition().getX() + "-" + this.getCurrentPosition().getY() + " D");
             Position newPos = new Position(this.getCurrentPosition().getX(), this.getCurrentPosition().getY() + 1);
             setCurrentPosition(newPos);
         }
@@ -258,7 +258,7 @@ namespace ExplorerState
         {
             Visit(this.getCurrentPosition().getY(), this.getCurrentPosition().getX());
             this.route.Add('R');
-            Console.WriteLine(this.getCurrentPosition().getX() + "-" + this.getCurrentPosition().getY() + " R");
+            //Console.WriteLine(this.getCurrentPosition().getX() + "-" + this.getCurrentPosition().getY() + " R");
             Position newPos = new Position(this.getCurrentPosition().getX() + 1, this.getCurrentPosition().getY());
             setCurrentPosition(newPos);
         }
@@ -266,7 +266,7 @@ namespace ExplorerState
         {
             Visit(this.getCurrentPosition().getY(), this.getCurrentPosition().getX());
             this.route.Add('L');
-            Console.WriteLine(this.getCurrentPosition().getX() + "-" + this.getCurrentPosition().getY() + " L");
+            //Console.WriteLine(this.getCurrentPosition().getX() + "-" + this.getCurrentPosition().getY() + " L");
             Position newPos = new Position(this.getCurrentPosition().getX() - 1, this.getCurrentPosition().getY());
             setCurrentPosition(newPos);
         }

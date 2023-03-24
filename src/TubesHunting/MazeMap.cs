@@ -52,20 +52,20 @@ namespace MazeMap
                         if (huruf != ' ')
                         {
                             // Console.WriteLine("this [" + i + ", " + j + "] = " + huruf);
-                            Console.WriteLine(huruf);
+                            //Console.WriteLine(huruf);
                             if (huruf == 'K') countK += 1;
                             else if (huruf == 'T') countT += 1;
                             else if (huruf != 'R' && huruf != 'X') throw new MazeException();
-                            Console.WriteLine(countK);
-                            Console.WriteLine(countT);
+                            //Console.WriteLine(countK);
+                            //Console.WriteLine(countT);
                             this.mapMatrix[i][j] = huruf;
                             j++;
                         }
                         else if (huruf == ' ') countBlank += 1;
                     }
-                    Console.Write("cb:");
-                    Console.WriteLine(countBlank);
-                    Console.WriteLine(prevCountBlank);
+                    //Console.Write("cb:");
+                    //Console.WriteLine(countBlank);
+                    //Console.WriteLine(prevCountBlank);
                     if (countBlank != (line.Count() - 1)/2) throw new MazeException();
                     else if(i != 0 && countBlank != prevCountBlank) throw new MazeException();
                     prevCountBlank = countBlank;
@@ -141,9 +141,8 @@ namespace MazeMap
         }
         public void validation()
         {
-            Console.WriteLine(countK);
-            Console.WriteLine(countT);
-            //if (this.cols != this.rows) throw new MazeException();
+            //Console.WriteLine(countK);
+            //Console.WriteLine(countT);
             if (this.countK != 1) throw new MazeException();
             else if (this.countT == 0) throw new MazeException();
         }

@@ -163,11 +163,14 @@ public partial class MainPage : ContentPage
 
     public void AlgorithmSwitch_Toggled(System.Object sender, Microsoft.Maui.Controls.ToggledEventArgs e)
     {
-        Algo = true; // Switch to:DFS
+        if (AlgorithmSwitch.IsToggled) Algo = true;
+        else Algo = false;
     }
 
     public async void SearchButton_Clicked(System.Object sender, System.EventArgs e)
     {
+        Console.WriteLine(TSP);
+        Console.WriteLine(Algo);
         var watch = Stopwatch.StartNew();
         //Console.Write("algo");
         //Console.WriteLine(Algo);
@@ -501,12 +504,12 @@ public partial class MainPage : ContentPage
             }
         }
     }
-
     public void TSPSwitch_Toggled(System.Object sender, Microsoft.Maui.Controls.ToggledEventArgs e)
     {
-        TSP = true;
+        Console.WriteLine("T");
+        if (TSPSwitch.IsToggled) TSP = true;
+        else TSP = false;
     }
-
     public void TimeSlider_ValueChanged(System.Object sender, Microsoft.Maui.Controls.ValueChangedEventArgs e)
     {
         TimeInterval = (int)e.NewValue;
