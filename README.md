@@ -18,8 +18,7 @@ As an addition this program can also generate TSP. The searching process also ca
 - .NET 7.0
 https://dotnet.microsoft.com/en-us/download/dotnet/7.0
 - Compatibility:
-WinUI 1.1.5;
-Xcode 14.0.1 (iOS 16)
+macOS
 
 ## Get Started 	🏃
 To run this program, you can clone this repository, then:
